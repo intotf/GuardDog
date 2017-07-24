@@ -1,0 +1,17 @@
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\GuardDog.exe
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\GuardDog.pdb
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.csprojResolveAssemblyReference.cache
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.Properties.Resources.resources
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.csproj.GenerateResource.Cache
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.exe
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.pdb
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Infrastructure.dll
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Aspose.Cells.dll
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Newtonsoft.Json.dll
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\log4net.dll
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Infrastructure.pdb
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Newtonsoft.Json.xml
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\log4net.xml
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\obj\Debug\GuardDog.MainForm.resources
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\Topshelf.dll
+E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\GuardDog\bin\Debug\GuardDog.exe.config

@@ -35,7 +35,7 @@ namespace GuardDog
                     if (!state)
                     {
                         state = await this.RunTargetAsync();
-                        Debugger.WriteLine("启动 {0} {1},请检查服务/程序是否存在.", this.TargetName, state ? "成功" : "失败");
+                        Debugger.WriteLine("启动 {0} {1}.", this.TargetName, state ? "成功" : "失败");
                         //this.NotifyCenterAsync("检测到目标状态不正常，修复" + (state ? "成功" : "失败"));
                     }
                 }

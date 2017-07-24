@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btStart = new System.Windows.Forms.Button();
             this.btStop = new System.Windows.Forms.Button();
             this.tbLog = new System.Windows.Forms.TextBox();
@@ -69,8 +70,11 @@
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.btStop);
             this.Controls.Add(this.btStart);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "看门狗程序 V1.0  QQ:42309073";
             this.ResumeLayout(false);
             this.PerformLayout();
 

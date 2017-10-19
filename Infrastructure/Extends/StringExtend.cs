@@ -103,6 +103,36 @@ namespace Infrastructure
         }
 
         /// <summary>
+        /// 转换为Bool 类型
+        /// 失败返回默认值 false
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <returns></returns>
+        public static bool ToBool(this string source)
+        {
+            bool value = false;
+            bool.TryParse(source, out value);
+            return value;
+        }
+
+        /// <summary>
+        /// 转换为Bool 类型
+        /// 失败则直接返回默认值default
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="defalut">默认值</param>
+        /// <returns></returns>
+        public static bool ToBool(this string source, bool defalut)
+        {
+            bool value = false;
+            if (bool.TryParse(source, out value))
+            {
+                return value;
+            }
+            return defalut;
+        }
+
+        /// <summary>
         /// 转换为整数
         /// 失败返回默认值0
         /// </summary>

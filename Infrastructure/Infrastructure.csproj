@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Infrastructure</RootNamespace>
     <AssemblyName>Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aspose.Cells">
@@ -61,10 +64,16 @@
     <Compile Include="Extends\ObjectExtend.cs" />
     <Compile Include="Extends\StringExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\Method.cs" />
+    <Compile Include="Reflection\Property.cs" />
     <Compile Include="Utility\Cells.cs" />
     <Compile Include="Utility\Debugger.cs" />
+    <Compile Include="Utility\EMail.cs" />
     <Compile Include="Utility\Encryption.cs" />
     <Compile Include="Utility\HtmlConvert.cs" />
+    <Compile Include="Utility\HttpClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utility\HttpHelper.cs" />
     <Compile Include="Utility\JsonSerializer.cs" />
     <Compile Include="Utility\Loger.cs" />

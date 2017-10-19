@@ -56,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DogConfig.cs" />
+    <Compile Include="Http\HttpSend.cs" />
+    <Compile Include="Mail\Mail.cs" />
+    <Compile Include="Mail\MailConfig.cs" />
+    <Compile Include="Mail\MailContent.cs" />
+    <Compile Include="Mail\MailSend.cs" />
+    <Compile Include="Mail\SendRecord.cs" />
     <Compile Include="Monitor\IMonitor.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -84,7 +90,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,6 +111,12 @@
       <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MailModel.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

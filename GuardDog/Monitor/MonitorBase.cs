@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.Utility;
+using System.Collections.Generic;
 
 namespace GuardDog
 {
@@ -14,6 +15,11 @@ namespace GuardDog
         /// 服务/进程名称
         /// </summary>
         public abstract string TargetName { get; }
+
+        /// <summary>
+        /// 服务/进程
+        /// </summary>
+        public abstract string SystemName { get; }
 
         /// <summary>
         /// 运行服务
@@ -35,15 +41,19 @@ namespace GuardDog
                     if (!state)
                     {
                         state = await this.RunTargetAsync();
-                        Debugger.WriteLine("启动 {0} {1}.", this.TargetName, state ? "成功" : "失败");
-                        //this.NotifyCenterAsync("检测到目标状态不正常，修复" + (state ? "成功" : "失败"));
+                        var msg = string.Format("检测到 {0} 状态不正常，修复 {1}", this.TargetName, (state ? "正常" : "未启动"));
+                        Debugger.WriteLine(msg);
+                        await MailSend.SendMail(msg, this.TargetName, this.SystemName);
+                        await HttpSend.Send(msg, this.TargetName, this.SystemName);
                     }
                 }
                 catch (Exception ex)
                 {
                     Debugger.WriteLine("{0} =>{1}", this.TargetName, ex.Message);
+                    MailSend.SendMail(ex.Message, this.TargetName, this.SystemName);
+                    HttpSend.Send(ex.Message, this.TargetName, this.SystemName);
                 }
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(DogConfig.Instance.IntervalTime.Seconds));
             }
         }
 

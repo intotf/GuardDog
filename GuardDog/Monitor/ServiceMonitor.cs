@@ -13,6 +13,11 @@ namespace GuardDog
         /// </summary>
         private readonly string serviceName;
 
+        public override string SystemName
+        {
+            get { return "服务"; }
+        }
+
         /// <summary>
         /// 控制器
         /// </summary>
@@ -56,6 +61,7 @@ namespace GuardDog
             this.service.Start();
             return Task.FromResult(true);
         }
+
 
     }
 }

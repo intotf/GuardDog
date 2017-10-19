@@ -31,3 +31,5 @@ E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.csprojResolveAssembl
 E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.MainForm.resources
 E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.Properties.Resources.resources
 E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.csproj.GenerateResource.Cache
+E:\学习资料\GitHub\GuardDog\GuardDog\bin\Debug\app.config
+E:\学习资料\GitHub\GuardDog\GuardDog\bin\Debug\MailModel.html

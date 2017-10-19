@@ -23,19 +23,27 @@ namespace GuardDog
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.btStop.Enabled = false;
             //InitializePage();
             Debugger.SetOut(new MyWriter(SynchronizationContext.Current, SetTblog));
             Console.SetOut(Debugger.Out);
         }
+
 
         private void SetTblog(string msg)
         {
             this.tbLog.AppendText(msg + "\r\n");
         }
 
+        /// <summary>
+        /// 开始监控
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btStart_Click(object sender, EventArgs e)
         {
-            //this.tbLog.AppendText("");
+            this.btStart.Enabled = false;
+            this.btStop.Enabled = true;
             if (this.cancellSource.IsCancellationRequested)
             {
                 this.cancellSource = new CancellationTokenSource();
@@ -62,6 +70,8 @@ namespace GuardDog
 
         private void btStop_Click(object sender, EventArgs e)
         {
+            this.btStart.Enabled = true;
+            this.btStop.Enabled = false;
             this.cancellSource.Cancel();
         }
     }

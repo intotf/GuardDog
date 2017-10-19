@@ -38,7 +38,19 @@ namespace GuardDog
         }
 
         /// <summary>
-        /// 收集中心URL
+        /// 获取所有邮件
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetConfigMails()
+        {
+            foreach (var node in Instance.Mails.Cast<ItemNode>())
+            {
+                yield return node.Name;
+            }
+        }
+
+        /// <summary>
+        /// 配置名称
         /// </summary>
         [ConfigurationProperty("Name", DefaultValue = "")]
         public string Name
@@ -50,14 +62,38 @@ namespace GuardDog
         }
 
         /// <summary>
-        /// 收集中心
+        /// 是否发送邮件
         /// </summary>
-        [ConfigurationProperty("Center")]
-        public Center Center
+        [ConfigurationProperty("IsSend", DefaultValue = false)]
+        public bool IsSend
         {
             get
             {
-                return (Center)this["Center"];
+                return (bool)this["IsSend"];
+            }
+        }
+
+        /// <summary>
+        /// Http 通知中心
+        /// </summary>
+        [ConfigurationProperty("HttpNotify")]
+        public HttpNotify HttpNotify
+        {
+            get
+            {
+                return (HttpNotify)this["HttpNotify"];
+            }
+        }
+
+        /// <summary>
+        /// 轮训设置
+        /// </summary>
+        [ConfigurationProperty("IntervalTime")]
+        public IntervalTime IntervalTime
+        {
+            get
+            {
+                return (IntervalTime)this["IntervalTime"];
             }
         }
 
@@ -84,22 +120,64 @@ namespace GuardDog
                 return (ItemNodeCollection)this["Process"];
             }
         }
+
+        /// <summary>
+        /// 邮件发送
+        /// </summary>
+        [ConfigurationProperty("Mails")]
+        public ItemNodeCollection Mails
+        {
+            get
+            {
+                return (ItemNodeCollection)this["Mails"];
+            }
+        }
+
+        /// <summary>
+        /// 网站监控列表
+        /// </summary>
+        [ConfigurationProperty("WebSites")]
+        public ItemNodeCollection WebSites
+        {
+            get
+            {
+                return (ItemNodeCollection)this["WebSites"];
+            }
+        }
+    }
+
+    /// <summary>
+    /// 轮训时长
+    /// </summary>
+    public class IntervalTime : ConfigurationElement
+    {
+        /// <summary>
+        /// 轮训时长，单位位秒
+        /// </summary>
+        [ConfigurationProperty("Seconds", DefaultValue = 10)]
+        public int Seconds
+        {
+            get
+            {
+                return (int)base["Seconds"];
+            }
+        }
     }
 
     /// <summary>
     /// 收集中心
     /// </summary>
-    public class Center : ConfigurationElement
+    public class HttpNotify : ConfigurationElement
     {
         /// <summary>
         /// 地址
         /// </summary>
-        [ConfigurationProperty("URL", DefaultValue = "")]
-        public string URL
+        [ConfigurationProperty("URL", DefaultValue = null)]
+        public Uri URL
         {
             get
             {
-                return (string)base["URL"];
+                return (Uri)base["URL"];
             }
         }
 
@@ -112,6 +190,18 @@ namespace GuardDog
             get
             {
                 return (string)base["Auth"];
+            }
+        }
+
+        /// <summary>
+        /// 异常 http通知间隔时间，单位分钟
+        /// </summary>
+        [ConfigurationProperty("MaxInterval", DefaultValue = 5)]
+        public int MaxInterval
+        {
+            get
+            {
+                return (int)base["MaxInterval"];
             }
         }
     }

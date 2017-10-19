@@ -1,0 +1,87 @@
+﻿<div id="contentDiv" style="position:relative;font-size:14px;height:auto;padding:15px 15px 10px 15px;z-index:1;zoom:1;line-height:1.7;" class="body">
+    <div id="qm_con_body">
+        <div id="mailContentContainer" class="qmbox qm_con_body_content qqmail_webmail_only">
+            <style>
+                .qmbox a {
+                    text-decoration: none;
+                    color: #008810;
+                }
+
+                .qmbox span {
+                    color: #111;
+                }
+
+                .qmbox .tbl td {
+                    font-size: 14px;
+                    padding: 4px 0;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                .qmbox .tbl {
+                    width: 800px;
+                    font-family: '微软雅黑' !important;
+                }
+            </style>
+
+            <div class="nav" style="width:750px;margin:0 auto;padding:0;border:1px solid #999; border-bottom:none;background:#0DA4CF;">
+                <img border="0" style="margin:4px;" width="26" src="http://www.mz9.net/42309073.png">
+            </div>
+            <div style="border:1px solid #999;width:750px;margin:0 auto;padding:0;background:#fff;">
+                <div style="padding:5px 20px; font-size:14px; color: #555;">
+                    <p style="margin:0; padding:10px 0;border-bottom: 1px dashed;padding-bottom: 15px;border-bottom: 1px dashed; color: #FF3333;font-weight: bold;font-size: 16px;">[{WebName}] 异常通知-网站服务监控</p>
+                    <div style="background:#f7f7f7; padding:10px 20px; line-height:36px;box-shadow:0px 0px 4px #CCC;margin-top:15px;overflow: hidden;">
+                        <table class="tbl">
+                            <tbody>
+                                <tr class="head">
+                                    <td style="font-size:15px;font-weight: bold;">信息</td>
+                                    <td style="font-size:15px;font-weight: bold;">详情</td>
+                                </tr>
+                                <tr>
+                                    <td>监控项名称</td>
+                                    <td>{WebName} <span style=" color:#7BB009; ">HTTP</span></td>
+                                </tr>
+                                <tr>
+                                    <td>监控对象</td>
+                                    <td><a href="{WebUrl}" target="_blank">{WebUrl}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>异常信息</td>
+                                    <td>
+                                        <strong style="color:#FF3333;">{Message}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>异常发生时间</td>
+                                    <td><span style="border-bottom:1px dashed #ccc;">{DateTime}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="padding-top:15px;">
+                        <span>
+                            联系 QQ：<span style="border-bottom: 1px dashed rgb(204, 204, 204); z-index: 1; position: static;">42309073</span>
+                        </span>
+                        <span style="margin-left:30px;">
+                            网址：
+                            <a href="http://www.mz9.net/WebMonitor" target="_blank"><strong>WebMonitor</strong></a>
+                        </span>
+                    </p>
+                    <p style="border-top:1px solid #ddd;font-size:12px;padding-top:10px;">
+                        <span>该邮件为Mz9网站监控服务系统邮件，请勿直接回复</span>
+                    </p>
+                </div>
+            </div>
+
+            <style type="text/css">
+                .qmbox style, .qmbox script, .qmbox head, .qmbox link, .qmbox meta {
+                    display: none !important;
+                }
+            </style>
+        </div>
+    </div><!-- -->
+    <style>
+        #mailContentContainer .txt {
+            height: auto;
+        }
+    </style>
+</div>

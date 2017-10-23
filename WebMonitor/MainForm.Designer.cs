@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tbLog = new System.Windows.Forms.TextBox();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.tbnSave = new System.Windows.Forms.TabPage();
@@ -47,14 +46,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvEmails = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvWebs = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.rtbLog = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbAttempts = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tbnSave.SuspendLayout();
@@ -77,7 +79,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tbLog);
+            this.tabPage1.Controls.Add(this.rtbLog);
             this.tabPage1.Controls.Add(this.btnStop);
             this.tabPage1.Controls.Add(this.btnStart);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -87,15 +89,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "开始监控";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tbLog
-            // 
-            this.tbLog.Location = new System.Drawing.Point(7, 7);
-            this.tbLog.Multiline = true;
-            this.tbLog.Name = "tbLog";
-            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLog.Size = new System.Drawing.Size(580, 372);
-            this.tbLog.TabIndex = 7;
             // 
             // btnStop
             // 
@@ -133,6 +126,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.tbAttempts);
+            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.cbIsSendMail);
             this.groupBox3.Controls.Add(this.tbIntervalTime);
             this.groupBox3.Controls.Add(this.label2);
@@ -148,7 +143,7 @@
             // cbIsSendMail
             // 
             this.cbIsSendMail.AutoSize = true;
-            this.cbIsSendMail.Location = new System.Drawing.Point(440, 21);
+            this.cbIsSendMail.Location = new System.Drawing.Point(475, 24);
             this.cbIsSendMail.Name = "cbIsSendMail";
             this.cbIsSendMail.Size = new System.Drawing.Size(96, 16);
             this.cbIsSendMail.TabIndex = 44;
@@ -157,7 +152,7 @@
             // 
             // tbIntervalTime
             // 
-            this.tbIntervalTime.Location = new System.Drawing.Point(334, 19);
+            this.tbIntervalTime.Location = new System.Drawing.Point(265, 22);
             this.tbIntervalTime.Name = "tbIntervalTime";
             this.tbIntervalTime.Size = new System.Drawing.Size(58, 21);
             this.tbIntervalTime.TabIndex = 43;
@@ -166,7 +161,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 23);
+            this.label2.Location = new System.Drawing.Point(168, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 42;
@@ -174,7 +169,7 @@
             // 
             // tbTimeOut
             // 
-            this.tbTimeOut.Location = new System.Drawing.Point(139, 19);
+            this.tbTimeOut.Location = new System.Drawing.Point(102, 22);
             this.tbTimeOut.Name = "tbTimeOut";
             this.tbTimeOut.Size = new System.Drawing.Size(58, 21);
             this.tbTimeOut.TabIndex = 41;
@@ -183,7 +178,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 23);
+            this.label1.Location = new System.Drawing.Point(9, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 40;
@@ -220,23 +215,6 @@
             this.dgvEmails.TabIndex = 32;
             this.dgvEmails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmails_CellContentClick);
             // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "邮箱地址";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 450;
-            // 
-            // dataGridViewButtonColumn2
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "删除";
-            this.dataGridViewButtonColumn2.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewButtonColumn2.HeaderText = "操作";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.ReadOnly = true;
-            this.dataGridViewButtonColumn2.Text = "删除";
-            this.dataGridViewButtonColumn2.Width = 70;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dgvWebs);
@@ -269,6 +247,16 @@
             this.dgvWebs.TabIndex = 30;
             this.dgvWebs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWebs_CellContentClick);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(521, 380);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(67, 26);
+            this.btnSave.TabIndex = 30;
+            this.btnSave.Text = " 保 存 ";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "站点名称";
@@ -279,7 +267,7 @@
             // 
             this.Column1.HeaderText = "站点地址";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 280;
+            this.Column1.Width = 270;
             // 
             // dataGridViewButtonColumn1
             // 
@@ -292,15 +280,47 @@
             this.dataGridViewButtonColumn1.Text = "删除";
             this.dataGridViewButtonColumn1.Width = 70;
             // 
-            // btnSave
+            // dataGridViewTextBoxColumn3
             // 
-            this.btnSave.Location = new System.Drawing.Point(521, 380);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(67, 26);
-            this.btnSave.TabIndex = 30;
-            this.btnSave.Text = " 保 存 ";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.dataGridViewTextBoxColumn3.HeaderText = "邮箱地址";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 440;
+            // 
+            // dataGridViewButtonColumn2
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "删除";
+            this.dataGridViewButtonColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewButtonColumn2.HeaderText = "操作";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.ReadOnly = true;
+            this.dataGridViewButtonColumn2.Text = "删除";
+            this.dataGridViewButtonColumn2.Width = 70;
+            // 
+            // rtbLog
+            // 
+            this.rtbLog.Location = new System.Drawing.Point(7, 7);
+            this.rtbLog.Name = "rtbLog";
+            this.rtbLog.Size = new System.Drawing.Size(580, 372);
+            this.rtbLog.TabIndex = 8;
+            this.rtbLog.Text = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(331, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 45;
+            this.label3.Text = "尝试次数：";
+            // 
+            // tbAttempts
+            // 
+            this.tbAttempts.Location = new System.Drawing.Point(404, 22);
+            this.tbAttempts.Name = "tbAttempts";
+            this.tbAttempts.Size = new System.Drawing.Size(59, 21);
+            this.tbAttempts.TabIndex = 46;
+            this.tbAttempts.Text = "3";
             // 
             // MainForm
             // 
@@ -315,7 +335,6 @@
             this.Text = "Min 网站监控 - QQ:42309073";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tbnSave.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -332,25 +351,27 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tbnSave;
-        private System.Windows.Forms.TextBox tbLog;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvWebs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvEmails;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cbIsSendMail;
         private System.Windows.Forms.TextBox tbIntervalTime;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbTimeOut;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
+        private System.Windows.Forms.RichTextBox rtbLog;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbAttempts;
     }
 }
 

@@ -55,11 +55,22 @@ namespace WebMonitor
             this.tbIntervalTime.Text = SysConfig.IntervalTime.ToString();
             this.tbTimeOut.Text = SysConfig.TimeOut.ToString();
             this.cbIsSendMail.Checked = SysConfig.IsSendMail;
+            this.tbAttempts.Text = SysConfig.Attempts.ToString();
         }
 
         private void SetTblog(string msg)
         {
-            this.tbLog.AppendText(DateTime.Now + " :" + msg + "\r\n");
+            var MaxLength = 100000 * 10000;
+            if (this.rtbLog.Text.Length > MaxLength)
+            {
+                StreamWriter sw = new StreamWriter(System.AppDomain.CurrentDomain.BaseDirectory + "Log" + DateTime.Now.ToString("yyyyMMddHHmm") + ".txt", true, Encoding.UTF8);
+                sw.WriteLine("----------------网站监控日志----------------");
+                sw.WriteLine(this.rtbLog.Text.Replace("\n", Environment.NewLine));
+                sw.Flush();
+                sw.Close();
+                this.rtbLog.Text = "日志过长,已经保存到日志文件." + Environment.NewLine;
+            }
+            this.rtbLog.AppendText(DateTime.Now + " :" + msg + Environment.NewLine);
         }
 
         /// <summary>
@@ -107,6 +118,7 @@ namespace WebMonitor
             model.IsSendMail = this.cbIsSendMail.Checked;
             model.IntervalTime = this.tbIntervalTime.Text.ToInt32(SysConfig.IntervalTime);
             model.TimeOut = this.tbTimeOut.Text.ToInt32(SysConfig.TimeOut);
+            model.Attempts = this.tbAttempts.Text.ToInt32(SysConfig.Attempts);
 
             //获取邮件列表
             List<string> listEmail = new List<string>();

@@ -25,10 +25,14 @@ namespace WebMonitor.Push
         {
             if (Config.Instance.IsSendMail)
             {
-                foreach (var item in Config.Instance.Emails)
+                var title = string.Format("[{0}] - 网站监控服务", Data.WebName);
+                try
                 {
-                    var title = string.Format("[{0}] - 网站监控服务", Data.WebName);
-                    await Mail.SendAsync(item, title, Data.Content);
+                    await Mail.SendAsync(Config.Instance.Emails, title, Data.Content);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("邮件发送失败:" + ex.Message);
                 }
             }
         }

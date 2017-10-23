@@ -42,6 +42,11 @@ namespace WebMonitor
         public bool IsSendMail { get; set; }
 
         /// <summary>
+        /// 尝试次数
+        /// </summary>
+        public int Attempts { get; set; }
+
+        /// <summary>
         /// 监控站点列表
         /// </summary>
         public IEnumerable<Webs> Webs { get; set; }
@@ -67,7 +72,7 @@ namespace WebMonitor
             configEle.SetAttributeValue("TimeOut", model.TimeOut);
             configEle.SetAttributeValue("IsSendMail", model.IsSendMail);
             configEle.SetAttributeValue("IntervalTime", model.IntervalTime);
-
+            configEle.SetAttributeValue("Attempts", model.Attempts);
             foreach (var item in model.Webs)
             {
                 XElement webEle = new XElement("Web");
@@ -101,6 +106,7 @@ namespace WebMonitor
             model.TimeOut = configEle.Attribute("TimeOut").Value.ToInt32(10);
             model.IsSendMail = configEle.Attribute("IsSendMail").Value.ToBool(false);
             model.IntervalTime = configEle.Attribute("IntervalTime").Value.ToInt32(30);
+            model.Attempts = configEle.Attribute("Attempts").Value.ToInt32(3);
             model.Webs = Config.GetWebs(configEle.Elements("Web"));
 
             var mailEle = XDoc.Root.Element("Emails").Elements("Item");
@@ -172,5 +178,26 @@ namespace WebMonitor
         /// 状态
         /// </summary>
         public bool State { get; set; }
+
+        /// <summary>
+        /// 异常次数
+        /// </summary>
+        public int Attempts { get; set; }
+    }
+
+    /// <summary>
+    /// Webs 比较器
+    /// </summary>
+    public class WebsComparer : IEqualityComparer<Webs>
+    {
+        public bool Equals(Webs x, Webs y)
+        {
+            return true;
+        }
+
+        public int GetHashCode(Webs obj)
+        {
+            return obj.Url.GetHashCode();
+        }
     }
 }

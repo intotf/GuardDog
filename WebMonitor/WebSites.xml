@@ -1,8 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <WebSites TimeOut="10" IsSendMail="true" IntervalTime="10">
-    <Web Name="百度" Url="http://www.baidu.com" />
-    <Web Name="测试公有云" Url="http://localhost:7032/" />
+  <WebSites TimeOut="10" IsSendMail="true" IntervalTime="1" Attempts="3">
+    <Web Name="测试站点" Url="http://localhost:6002/" />
   </WebSites>
   <Emails>
     <Item Mail="42309073@qq.com" />

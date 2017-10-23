@@ -19,8 +19,7 @@ namespace WebMonitor
         /// <summary>
         /// Web列表
         /// </summary>
-        private readonly static ConcurrentDictionary<Uri, bool> webList = new ConcurrentDictionary<Uri, bool>();
-
+        private readonly static ConcurrentDictionary<Uri, Webs> webList = new ConcurrentDictionary<Uri, Webs>();
 
         public Monitoring(string name, Uri url)
         {
@@ -39,20 +38,22 @@ namespace WebMonitor
                 throw new ArgumentNullException();
             }
 
+            var config = Config.Instance;
             //执行监测并自动启动服务
             while (!cancellationToken.IsCancellationRequested)
             {
 
-                using (var client = new HttpClient(Config.Instance.TimeOut * 1000))
+                using (var client = new HttpClient(config.TimeOut * 1000))
                 {
                     var exMsg = "正常.";
                     string result = string.Empty;
+                    var model = new Webs() { Name = this.Name, Url = this.Url, Attempts = 0, State = true };
                     try
                     {
                         result = await client.DownloadStringTaskAsync(this.Url);
-                        var state = webList.GetOrAdd(this.Url, true);
-                        webList.AddOrUpdate(this.Url, true, (key, oldState) => true);
-                        if (!state)
+                        var oldModel = webList.GetOrAdd(this.Url, model);
+                        webList.AddOrUpdate(this.Url, model, (key, newModel) => model);
+                        if (!oldModel.State)
                         {
                             exMsg = "从异常中恢复";
                             Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
@@ -69,8 +70,22 @@ namespace WebMonitor
                     {
                         exMsg = ex.Message;
                     }
-                    webList.AddOrUpdate(this.Url, false, (key, oldState) => false);
-                    Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
+
+                    model.State = false;
+                    //先查询是否有记录
+                    var exModel = webList.GetOrAdd(this.Url, model);
+                    exModel.Attempts += 1;
+                    exModel.State = false;
+                    if (exModel.Attempts < config.Attempts)
+                    {
+                        Debugger.WriteLine("{0} {1} {2},正在重试 {3}", this.Url.ToString(), this.Name, exMsg, exModel.Attempts);
+                        Thread.Sleep(1000);
+                        continue;
+                    }
+                    exModel.Attempts = 0;
+                    webList.AddOrUpdate(this.Url, exModel, (key, oldState) => exModel);
+
+                    Debugger.WriteLine("{0} {1} {2},发送邮件!", this.Url.ToString(), this.Name, exMsg);
                     await SendEmail(exMsg);
                     await TaskDelay();
                     continue;

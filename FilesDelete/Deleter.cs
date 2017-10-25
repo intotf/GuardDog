@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Collections;
-using System.Diagnostics;
 
 namespace FilesDelete
 {
     public class Deleter
     {
         private static Timer timer;
-        private static string dir = ConfigurationManager.AppSettings["Dir"];
-        private static string filter = ConfigurationManager.AppSettings["Filter"];
-        private static bool flag = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
-        private static int days = int.Parse(ConfigurationManager.AppSettings["Days"]);
+        private static readonly string dir = ConfigurationManager.AppSettings["Dir"];
+        private static readonly string filter = ConfigurationManager.AppSettings["Filter"];
+        private static readonly bool flag = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
+        private static readonly int days = int.Parse(ConfigurationManager.AppSettings["Days"]);
         private static int delNum = 0;     //删除文件数
         private static int ignoreNum = 0;    //忽略文件数
         private static Stopwatch sw = new Stopwatch();  //运行时间

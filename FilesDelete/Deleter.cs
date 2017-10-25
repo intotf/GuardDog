@@ -15,6 +15,7 @@ namespace FilesDelete
         private static readonly string filter = ConfigurationManager.AppSettings["Filter"];
         private static readonly bool flag = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
         private static readonly int days = int.Parse(ConfigurationManager.AppSettings["Days"]);
+        private static readonly bool delEmpty = bool.Parse(ConfigurationManager.AppSettings["DeleteEmptyDir"]);
         private static int delNum = 0;     //删除文件数
         private static int ignoreNum = 0;    //忽略文件数
         private static Stopwatch sw = new Stopwatch();  //运行时间
@@ -63,7 +64,12 @@ namespace FilesDelete
                     }
                     else
                     {
-                        Directory.Delete(current.FileName);
+                        if (delEmpty)
+                        {
+                            Directory.Delete(current.FileName);
+                            delNum++;
+                            Console.WriteLine("删除 空文件夹 {0}", current.FileName);
+                        }
                     }
                 }
                 else

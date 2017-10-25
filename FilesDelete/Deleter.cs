@@ -101,6 +101,8 @@ namespace FilesDelete
         /// <returns></returns>
         public static void SeachFile()
         {
+            delNum = 0;
+            ignoreNum = 0;
             sw.Reset();
             sw.Start();
             var fileList = getFiles(dir, filter);

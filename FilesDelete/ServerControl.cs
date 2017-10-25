@@ -13,7 +13,6 @@ namespace FilesDelete
         {
             Deleter.Init();
             Deleter.SeachFile();
-            //Deleter.Seach();
             return true;
         }
 

@@ -66,7 +66,6 @@ namespace FilesDelete
                 {
                     filter = "*.*";
                 }
-                filter = "*.*";
                 this.fileFilter = Path.Combine(this.dir, filter);
             }
 
@@ -85,6 +84,7 @@ namespace FilesDelete
                     }
                     while (WinFile.FileFinder.FindNextFile(intPtr, out data))
                     {
+                        //剔除掉 如：D;\file.. 这种根名称
                         if (data.cFileName.Substring(data.cFileName.Length - 2, 2) != "..")
                         {
                             yield return new WinFile(this.dir, data);

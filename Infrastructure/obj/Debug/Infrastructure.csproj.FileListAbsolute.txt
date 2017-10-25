@@ -8,11 +8,10 @@ E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向
 E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\Infrastructure\bin\Debug\Newtonsoft.Json.xml
 E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\Infrastructure\obj\Debug\Infrastructure.dll
 E:\学习资料\基于MVC4+EF5+EasyUI技术实现通用权限管理系统\面向对象学习demo\GuardDog\GuardDog\Infrastructure\obj\Debug\Infrastructure.pdb
-E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
 E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.dll
 E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Infrastructure.dll
 E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Infrastructure.pdb
 E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Newtonsoft.Json.dll
-E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\log4net.xml
 E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Newtonsoft.Json.xml
 E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.pdb
+E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMonitor", "WebMonitor\WebMonitor.csproj", "{6F965A7A-6481-4203-8906-31F3053A7FAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesDelete", "FilesDelete\FilesDelete.csproj", "{29AE6F0F-2A66-43C5-818A-154AA14E7641}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

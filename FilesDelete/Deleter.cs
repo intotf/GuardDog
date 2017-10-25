@@ -22,14 +22,15 @@ namespace FilesDelete
 
         /// <summary>
         /// 初始化服务
-        /// 第天执行一次
+        /// 
         /// </summary>
         public static void Init()
         {
             if (Deleter.timer == null)
             {
-                TimeSpan dueTime = DateTime.Today.AddDays(1).Subtract(DateTime.Now);
-                TimeSpan period = TimeSpan.FromDays(1);
+                var IntervalTime = int.Parse(ConfigurationManager.AppSettings["IntervalTime"]);
+                TimeSpan dueTime = DateTime.Now.AddMinutes(IntervalTime).Subtract(DateTime.Now);
+                TimeSpan period = TimeSpan.FromMinutes(IntervalTime);
                 Deleter.timer = new Timer((state) =>
                 {
                     Deleter.SeachFile();

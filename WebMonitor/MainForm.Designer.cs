@@ -301,6 +301,7 @@
             // 
             this.rtbLog.Location = new System.Drawing.Point(7, 7);
             this.rtbLog.Name = "rtbLog";
+            this.rtbLog.ReadOnly = true;
             this.rtbLog.Size = new System.Drawing.Size(580, 372);
             this.rtbLog.TabIndex = 8;
             this.rtbLog.Text = "";

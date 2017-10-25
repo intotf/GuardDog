@@ -56,7 +56,15 @@ namespace FilesDelete
             {
                 if (current.Attributes == FileAttributes.Directory)
                 {
-                    DeleteFile(getFiles(current.FileName, filter), filter);
+                    var fileList = getFiles(current.FileName, filter);
+                    if (fileList.Count() > 0)
+                    {
+                        DeleteFile(fileList, filter);
+                    }
+                    else
+                    {
+                        Directory.Delete(current.FileName);
+                    }
                 }
                 else
                 {

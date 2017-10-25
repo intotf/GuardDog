@@ -13,7 +13,7 @@ namespace FilesDelete
         private static Timer timer;
         private static readonly string dir = ConfigurationManager.AppSettings["Dir"];
         private static readonly string filter = ConfigurationManager.AppSettings["Filter"];
-        private static readonly bool flag = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
+        private static readonly bool delFalg = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
         private static readonly int days = int.Parse(ConfigurationManager.AppSettings["Days"]);
         private static readonly bool delEmpty = bool.Parse(ConfigurationManager.AppSettings["DeleteEmptyDir"]);
         private static int delNum = 0;     //删除文件数
@@ -77,7 +77,7 @@ namespace FilesDelete
                     TimeSpan t2 = now.Subtract(current.CreationTime);
                     if (t2 > t && filter.Contains(Path.GetExtension(current.FileName)))
                     {
-                        if (flag)
+                        if (delFalg)
                         {
                             current.Delete();
                         }

@@ -12,7 +12,7 @@ namespace FilesDelete
     {
         private static Timer timer;
         private static readonly string dir = ConfigurationManager.AppSettings["Dir"];
-        private static readonly string filter = ConfigurationManager.AppSettings["Filter"];
+        private static readonly string[] filter = ConfigurationManager.AppSettings["Filter"].ToString().Split('|');
         private static readonly bool delFalg = bool.Parse(ConfigurationManager.AppSettings["Delete"]);
         private static readonly int days = int.Parse(ConfigurationManager.AppSettings["Days"]);
         private static readonly bool delEmpty = bool.Parse(ConfigurationManager.AppSettings["DeleteEmptyDir"]);
@@ -56,7 +56,7 @@ namespace FilesDelete
         /// </summary>
         /// <param name="files">需要删除的文件列表</param>
         /// <param name="filter">过滤的文件后缀</param>
-        public static void DeleteFile(List<WinFile> files, string filter)
+        public static void DeleteFile(List<WinFile> files)
         {
             DateTime now = DateTime.Now;
             TimeSpan t = TimeSpan.FromDays((double)days);
@@ -67,7 +67,7 @@ namespace FilesDelete
                     var fileList = getFiles(current.FileName);
                     if (fileList.Count() > 0)
                     {
-                        DeleteFile(fileList, filter);
+                        DeleteFile(fileList);
                     }
                     else
                     {
@@ -111,7 +111,7 @@ namespace FilesDelete
             sw.Reset();
             sw.Start();
             var fileList = getFiles(dir);
-            DeleteFile(fileList, filter);
+            DeleteFile(fileList);
             sw.Stop();
             Console.WriteLine("{0} 执行完毕.总共耗时 {1} ms.", DateTime.Now, sw.ElapsedMilliseconds);
             delNum = 0;

@@ -3,8 +3,8 @@
       以下第个小工具都可以注册为服务进行进行，也可以用桌面程序运行。
       注册为服务在相应的程序目录下新增批处理文件名如： install.bat
       注册为服务代码脚本：
-      WebMonitor.exe install <br>
-      WebMonitor.exe start <br>
+      WebMonitor.exe install 
+      WebMonitor.exe start 
       pause
 
 ## 1、看门狗程序 GuardDog

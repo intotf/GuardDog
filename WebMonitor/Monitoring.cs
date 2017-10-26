@@ -1,13 +1,9 @@
 ﻿using Infrastructure.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using Infrastructure;
 using WebMonitor.Push;
-using System.Collections.Concurrent;
 
 namespace WebMonitor
 {
@@ -48,19 +44,24 @@ namespace WebMonitor
                     var exMsg = "正常.";
                     string result = string.Empty;
                     var model = new Webs() { Name = this.Name, Url = this.Url, Attempts = 0, State = true };
+                    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();  //运行时间
                     try
                     {
+                        sw.Reset();
+                        sw.Start();
                         result = await client.DownloadStringTaskAsync(this.Url);
+                        sw.Stop();
                         var oldModel = webList.GetOrAdd(this.Url, model);
                         webList.AddOrUpdate(this.Url, model, (key, newModel) => model);
                         if (!oldModel.State)
                         {
-                            exMsg = "从异常中恢复";
+                            exMsg = "从异常中恢复,访问耗时 " + sw.ElapsedMilliseconds + "ms.";
                             Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
                             await SendEmail(exMsg);
                         }
                         else
                         {
+                            exMsg += ",访问耗时 " + sw.ElapsedMilliseconds + "ms.";
                             Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
                             await TaskDelay();
                         }
@@ -70,7 +71,7 @@ namespace WebMonitor
                     {
                         exMsg = ex.Message;
                     }
-
+                    exMsg += ",访问耗时 " + sw.ElapsedMilliseconds + "ms.";
                     model.State = false;
                     //先查询是否有记录
                     var exModel = webList.GetOrAdd(this.Url, model);

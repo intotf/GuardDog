@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <WebSites TimeOut="10" IsSendMail="true" IntervalTime="1" Attempts="3">
-    <Web Name="测试站点" Url="http://localhost:6002/" />
+  <WebSites TimeOut="10" IsSendMail="true" IntervalTime="5" Attempts="5">
+    <Web Name="测试站点" Url="http://localhost/" />
     <!--<Web Name="公有云正式平台" Url="http://public.taichuan.com" />
     <Web Name="太川私有云" Url="http://haina.taichuan.net/" />
     <Web Name="南京私有云" Url="http://haina.taichuan.com/" />

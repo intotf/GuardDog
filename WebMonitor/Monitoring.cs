@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Utility;
 using System;
 using System.Collections.Concurrent;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMonitor.Push;
@@ -41,7 +42,7 @@ namespace WebMonitor
 
                 using (var client = new HttpClient(config.TimeOut * 1000))
                 {
-                    var exMsg = "正常.";
+                    var exMsg = "正常";
                     string result = string.Empty;
                     var model = new Webs() { Name = this.Name, Url = this.Url, Attempts = 0, State = true };
                     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();  //运行时间
@@ -52,8 +53,7 @@ namespace WebMonitor
                         result = await client.DownloadStringTaskAsync(this.Url);
                         sw.Stop();
                         var oldModel = webList.GetOrAdd(this.Url, model);
-                        webList.AddOrUpdate(this.Url, model, (key, newModel) => model);
-                        if (!oldModel.State)
+                        if (!oldModel.State && oldModel.Attempts >= config.Attempts)
                         {
                             exMsg = "从异常中恢复,访问耗时 " + sw.ElapsedMilliseconds + "ms.";
                             Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
@@ -65,9 +65,10 @@ namespace WebMonitor
                             Debugger.WriteLine("{0} {1} {2}", this.Url.ToString(), this.Name, exMsg);
                             await TaskDelay();
                         }
+                        webList.AddOrUpdate(this.Url, model, (key, newModel) => model);
                         continue;
                     }
-                    catch (Exception ex)
+                    catch (WebException ex)
                     {
                         exMsg = ex.Message;
                     }
@@ -79,14 +80,13 @@ namespace WebMonitor
                     exModel.State = false;
                     if (exModel.Attempts < config.Attempts)
                     {
-                        Debugger.WriteLine("{0} {1} {2},正在重试 {3}", this.Url.ToString(), this.Name, exMsg, exModel.Attempts);
-                        await Task.Delay(1000);
+                        Debugger.WriteLine("{0} {1} {2} 正在重试 {3}!", this.Url.ToString(), this.Name, exMsg, exModel.Attempts);
+                        await Task.Delay(2000);
                         continue;
                     }
-                    exModel.Attempts = 0;
                     webList.AddOrUpdate(this.Url, exModel, (key, oldState) => exModel);
 
-                    Debugger.WriteLine("{0} {1} {2},发送邮件!", this.Url.ToString(), this.Name, exMsg);
+                    Debugger.WriteLine("{0} {1} {2} 发送邮件!", this.Url.ToString(), this.Name, exMsg);
                     await SendEmail(exMsg);
                     await TaskDelay();
                     continue;

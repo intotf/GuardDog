@@ -80,7 +80,7 @@ namespace WebMonitor
                     if (exModel.Attempts < config.Attempts)
                     {
                         Debugger.WriteLine("{0} {1} {2},正在重试 {3}", this.Url.ToString(), this.Name, exMsg, exModel.Attempts);
-                        Thread.Sleep(1000);
+                        await Task.Delay(1000);
                         continue;
                     }
                     exModel.Attempts = 0;

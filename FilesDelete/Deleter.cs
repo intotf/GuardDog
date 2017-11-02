@@ -44,10 +44,10 @@ namespace FilesDelete
         /// <param name="dir">目录名称</param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static List<WinFile> getFiles(string dir)
+        public static IEnumerable<WinFile> getFiles(string dir)
         {
             //不过滤后缀查询,否则无法递归查询子目录
-            var fileList = WinFile.GetFiles(dir, null).ToList();
+            var fileList = WinFile.GetFiles(dir, null);
             return fileList;
         }
 
@@ -56,7 +56,7 @@ namespace FilesDelete
         /// </summary>
         /// <param name="files">需要删除的文件列表</param>
         /// <param name="filter">过滤的文件后缀</param>
-        public static void DeleteFile(List<WinFile> files)
+        public static void DeleteFile(IEnumerable<WinFile> files)
         {
             DateTime now = DateTime.Now;
             TimeSpan t = TimeSpan.FromDays((double)days);

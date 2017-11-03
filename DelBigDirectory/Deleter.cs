@@ -15,7 +15,7 @@ namespace DelBigDirectory
         private static DeleteConfig config = DeleteConfig.instance;
         private static Timer timer;
         private static long delNum = 0;     //删除文件数
-        private static int ignoreNum = 0;    //忽略文件数
+        private static long ignoreNum = 0;    //忽略文件数
         private static Stopwatch sw = new Stopwatch();  //运行时间
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace DelBigDirectory
         {
             if (Deleter.timer == null)
             {
-                TimeSpan dueTime = DateTime.Now.AddMinutes(config.IntervalTime).Subtract(DateTime.Now);
-                TimeSpan period = TimeSpan.FromMinutes(config.IntervalTime);
+                TimeSpan dueTime = DateTime.Now.AddSeconds(config.IntervalTime).Subtract(DateTime.Now);
+                TimeSpan period = TimeSpan.FromSeconds(config.IntervalTime);
                 Deleter.timer = new Timer((state) =>
                 {
                     Deleter.DelAllFile();
@@ -40,56 +40,36 @@ namespace DelBigDirectory
         /// </summary>
         public static void DelAllFile()
         {
+            delNum = 0;
+            ignoreNum = 0;
             sw.Restart();
             var dir = new System.IO.DirectoryInfo(config.dir);
             var files = dir.EnumerateFiles("*.*");
-            foreach (var item in files)
+            Parallel.ForEach(files, (f) =>
             {
-                DelFile(item);
-            }
-            //WinFile.SearchByDel(config.dir);
-            sw.Stop();
-            Console.WriteLine("{0} 执行完毕.总共耗时 {1} ms,删除文件{2},跳过{3}.", DateTime.Now, sw.ElapsedMilliseconds, delNum, ignoreNum);
-        }
-
-
-        private static void DelFiles(List<string> delFiles)
-        {
-            Parallel.ForEach(delFiles, (f) =>
-            {
-                Interlocked.Add(ref delNum, 1);
-                File.Delete(f);
-                Console.WriteLine("删除 {0}", f);
+                DelFile(f);
             });
-            delFiles.Clear();
+            sw.Stop();
+            Console.WriteLine("{0} 执行完毕.总共耗时 {1} ms,删除文件{2},跳过{3}.", DateTime.Now, sw.ElapsedMilliseconds, Interlocked.Read(ref delNum), Interlocked.Read(ref ignoreNum));
+            Console.ReadKey();
         }
+
 
         /// <summary>
         /// 删除单个文件
         /// </summary>
         /// <param name="fileName"></param>
-        public static void DelFile(FileInfo file)
+        private static void DelFile(FileInfo file)
         {
-            if (Filefilter(file))
+            if (Filefilter(file) && config.delFalg)
             {
-                if (config.delFalg)
-                {
-                    var delFiles = new List<string>();
-                    delFiles.Add(file.FullName);
-                    if (delFiles.Count() > 1000)
-                    {
-                        Console.WriteLine("累积需要删除的文件达到了{0}条了,开始并行删除", delFiles.Count());
-                        DelFiles(delFiles);
-                        delFiles.Clear();
-                    }
-                }
+                Interlocked.Add(ref delNum, 1);
+                file.Delete();
             }
             else
             {
-                Console.WriteLine("跳过 {0} {1} ", file.CreationTime, file.Name);
-                ignoreNum++;
+                Interlocked.Add(ref ignoreNum, 1);
             }
-            Console.Title = string.Format("删除{0} 跳过{1},运行时长 {2} ms.", Interlocked.Read(ref delNum), ignoreNum, sw.ElapsedMilliseconds);
         }
 
 
@@ -100,10 +80,9 @@ namespace DelBigDirectory
         /// <returns></returns>
         private static bool Filefilter(FileInfo file)
         {
-            return true;
-            //file.FullName.Substring(file.FullName.Length - 2, 2) != ".." &&
-            //               config.filter.Contains(file.Extension) &&
-            //               file.CreationTime.AddDays(config.days) < config.now;
+            return file.FullName.Substring(file.FullName.Length - 2, 2) != ".." &&
+                           config.filter.Contains(file.Extension) &&
+                           file.CreationTime.AddDays(config.days) < config.now;
         }
     }
 }

@@ -43,7 +43,13 @@ namespace DelBigDirectory
         public static void DelAllFile()
         {
             sw.Restart();
-            WinFile.SearchByDel(config.dir);
+            var dir = new System.IO.DirectoryInfo(config.dir);
+            var files = dir.EnumerateFiles("*.*");
+            foreach (var item in files)
+            {
+                DelFile(item);
+            }
+            //WinFile.SearchByDel(config.dir);
             sw.Stop();
             Console.WriteLine("{0} 执行完毕.总共耗时 {1} ms,删除文件{2},跳过{3}.", DateTime.Now, sw.ElapsedMilliseconds, delNum, ignoreNum);
         }
@@ -52,11 +58,8 @@ namespace DelBigDirectory
         /// 删除单个文件
         /// </summary>
         /// <param name="fileName"></param>
-        public static void DelFile(string fileName)
+        public static void DelFile(FileInfo file)
         {
-
-            var file = new FileInfo(@config.dir + "\\" + fileName);
-
             if (Filefilter(file))
             {
                 if (config.delFalg)
@@ -67,13 +70,14 @@ namespace DelBigDirectory
                         Console.WriteLine("累积需要删除的文件达到了{0}条了,开始并行删除", delFiles.Count());
                         Parallel.ForEach(delFiles, (f) =>
                         {
-                            Interlocked.Add(ref delNum, delNum + 1);
+                            Interlocked.Add(ref delNum, 1);
                             File.Delete(f);
                         });
                     }
-                    Console.WriteLine("删除 {0} {1}", file.CreationTime, file.Name);
+                    //File.Delete(file.FullName);
                     delFiles.Clear();
                 }
+                Console.WriteLine("删除 {0} {1}", file.CreationTime, file.Name);
             }
             else
             {

@@ -98,6 +98,5 @@ namespace DelBigDirectory
                 return int.Parse(ConfigurationManager.AppSettings["Days"]);
             }
         }
-
     }
 }

@@ -10,42 +10,33 @@ using System.Threading.Tasks;
 
 namespace DelBigDirectory
 {
-    public class Deleter
+    public class ParallelDelete
     {
         private static DeleteConfig config = DeleteConfig.instance;
         private static Timer timer;
-        private static Timer TitleTimer;
         private static long delNum = 0;     //删除文件数
         private static long ignoreNum = 0;    //忽略文件数
         private static Stopwatch sw = new Stopwatch();  //运行时间
 
         /// <summary>
         /// 初始化服务
+        /// 
         /// </summary>
         public static void Init()
         {
-            if (Deleter.timer == null)
+            if (ParallelDelete.timer == null)
             {
-                TimeSpan dueTime = DateTime.Now.AddHours(config.IntervalTime).Subtract(DateTime.Now);
-                TimeSpan period = TimeSpan.FromHours(config.IntervalTime);
-                Deleter.timer = new Timer((state) =>
+                TimeSpan dueTime = DateTime.Now.AddSeconds(config.IntervalTime).Subtract(DateTime.Now);
+                TimeSpan period = TimeSpan.FromSeconds(config.IntervalTime);
+                ParallelDelete.timer = new Timer((state) =>
                 {
-                    Deleter.DelAllFile();
+                    Console.WriteLine("当前耗时 {0} ms,删除文件{1},跳过{2}.", sw.ElapsedMilliseconds, Interlocked.Read(ref delNum), Interlocked.Read(ref ignoreNum));
+                    ignoreNum = 0;
+                    delNum = 0;
+                    sw.Restart();
+                    //Deleter.DelAllFile();
                 }, null, dueTime, period);
             }
-
-
-            ////// 第一个参数是：回调方法，表示要定时执行的方法，
-            ////// 第二个参数是：回调方法要使用的信息的对象，或者为空引用，
-            ////// 第三个参数是：调用 callback 之前延迟的时间量（以毫秒为单位），指定 Timeout.Infinite 以防止计时器开始计时。指定零 (0) 以立即启动计时器。第四个参数是：定时的时间时隔，以毫秒为单位
-            //if (Deleter.TitleTimer == null)
-            //{
-            //    var dueTilteTime = DateTime.Now.AddHours(config.IntervalTime).Subtract(DateTime.Now);
-            //    Deleter.TitleTimer = new Timer((state) =>
-            //    {
-            //        Console.Title = string.Format("当前耗时 {0} ms,删除{1},跳过{2}.", sw.ElapsedMilliseconds, delNum, ignoreNum);
-            //    }, null, dueTilteTime, TimeSpan.FromSeconds(1));
-            //}
         }
 
         /// <summary>
@@ -53,18 +44,20 @@ namespace DelBigDirectory
         /// </summary>
         public static void DelAllFile()
         {
+            delNum = 0;
+            ignoreNum = 0;
             sw.Restart();
             var dir = new System.IO.DirectoryInfo(config.dir);
-            var files = dir.EnumerateFiles("*.*", SearchOption.AllDirectories);
-            foreach (var item in files)
+            var files = dir.EnumerateFiles("*.*");
+            Parallel.ForEach(files, (f) =>
             {
-                Thread.Sleep(1);
-                DelFile(item);
-            }
+                DelFile(f);
+            });
             sw.Stop();
-            Console.WriteLine("{0} 执行完毕,总共耗时 {1}ms,删除 {2},跳过 {3}.", DateTime.Now, sw.ElapsedMilliseconds, delNum, ignoreNum);
+            Console.WriteLine("{0} 执行完毕.", DateTime.Now);
             Console.ReadKey();
         }
+
 
         /// <summary>
         /// 删除单个文件
@@ -74,12 +67,12 @@ namespace DelBigDirectory
         {
             if (Filefilter(file) && config.delFalg)
             {
-                delNum++;
+                Interlocked.Add(ref delNum, 1);
                 file.Delete();
             }
             else
             {
-                ignoreNum++;
+                Interlocked.Add(ref ignoreNum, 1);
             }
         }
 

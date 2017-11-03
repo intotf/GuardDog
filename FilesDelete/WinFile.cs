@@ -87,6 +87,7 @@ namespace FilesDelete
                         //剔除掉 如：D;\file.. 这种根名称
                         if (data.cFileName.Substring(data.cFileName.Length - 2, 2) != "..")
                         {
+                            //BigDirectory.DelDirectory(this.dir);
                             yield return new WinFile(this.dir, data);
                         }
                         //if (data.dwFileAttributes != FileAttributes.Directory )

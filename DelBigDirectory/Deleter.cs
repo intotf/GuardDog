@@ -30,7 +30,8 @@ namespace DelBigDirectory
                 TimeSpan period = TimeSpan.FromSeconds(config.IntervalTime);
                 Deleter.timer = new Timer((state) =>
                 {
-                    Deleter.DelAllFile();
+                    Console.WriteLine("{0} 执行完毕.总共耗时 {1} ms,删除文件{2},跳过{3}.", DateTime.Now, sw.ElapsedMilliseconds, Interlocked.Read(ref delNum), Interlocked.Read(ref ignoreNum));
+                    //Deleter.DelAllFile();
                 }, null, dueTime, period);
             }
         }
@@ -45,7 +46,7 @@ namespace DelBigDirectory
             sw.Restart();
             var dir = new System.IO.DirectoryInfo(config.dir);
             var files = dir.EnumerateFiles("*.*");
-            Parallel.ForEach(files, (f) =>
+            Parallel.ForEach(files, new ParallelOptions() { MaxDegreeOfParallelism = 100 }, (f) =>
             {
                 DelFile(f);
             });

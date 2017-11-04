@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuardDog", "GuardDog\GuardDog.csproj", "{7F883D35-2E03-48EB-9CE5-5CD66361EA0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{1262169B-6657-492A-AA35-68D54913E6E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMonitor", "WebMonitor\WebMonitor.csproj", "{6F965A7A-6481-4203-8906-31F3053A7FAF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesDelete", "FilesDelete\FilesDelete.csproj", "{29AE6F0F-2A66-43C5-818A-154AA14E7641}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelBigDirectory", "DelBigDirectory\DelBigDirectory.csproj", "{32A4CA1E-7491-41AD-8BFD-5064770EA0EA}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F965A7A-6481-4203-8906-31F3053A7FAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29AE6F0F-2A66-43C5-818A-154AA14E7641}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32A4CA1E-7491-41AD-8BFD-5064770EA0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32A4CA1E-7491-41AD-8BFD-5064770EA0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32A4CA1E-7491-41AD-8BFD-5064770EA0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU

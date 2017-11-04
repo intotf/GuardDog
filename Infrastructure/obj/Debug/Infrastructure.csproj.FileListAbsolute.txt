@@ -15,3 +15,5 @@ E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Newtonsoft.Json.dll
 E:\学习资料\GitHub\GuardDog\Infrastructure\bin\Debug\Newtonsoft.Json.xml
 E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.pdb
 E:\学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+D:\C# 学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+D:\C# 学习资料\GitHub\GuardDog\Infrastructure\obj\Debug\Infrastructure.dll

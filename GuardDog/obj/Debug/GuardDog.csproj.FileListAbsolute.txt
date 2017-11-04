@@ -32,3 +32,20 @@ E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.Properties.Resources
 E:\学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.csproj.GenerateResource.Cache
 E:\学习资料\GitHub\GuardDog\GuardDog\bin\Debug\app.config
 E:\学习资料\GitHub\GuardDog\GuardDog\bin\Debug\MailModel.html
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\MailModel.html
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\app.config
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\GuardDog.exe.config
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\GuardDog.exe
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\GuardDog.pdb
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\Infrastructure.dll
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\Aspose.Cells.dll
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\Newtonsoft.Json.dll
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\log4net.dll
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\Infrastructure.pdb
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\bin\Debug\Newtonsoft.Json.xml
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.csprojResolveAssemblyReference.cache
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.MainForm.resources
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.Properties.Resources.resources
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.csproj.GenerateResource.Cache
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.exe
+D:\C# 学习资料\GitHub\GuardDog\GuardDog\obj\Debug\GuardDog.pdb

@@ -10,8 +10,16 @@ namespace DelBigDirectory
     {
         public bool Start(HostControl hostControl)
         {
-            Deleter.Init();
-            Deleter.DelAllFile();
+            try
+            {
+                Deleter.Init();
+                Deleter.DelAllFile();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+            }
             return true;
         }
 

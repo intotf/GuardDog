@@ -26,8 +26,8 @@ namespace DelBigDirectory
         {
             if (Deleter.timer == null)
             {
-                TimeSpan dueTime = DateTime.Now.AddHours(config.IntervalTime).Subtract(DateTime.Now);
-                TimeSpan period = TimeSpan.FromHours(config.IntervalTime);
+                TimeSpan dueTime = DateTime.Now.AddDays(config.IntervalTime).Subtract(DateTime.Now);
+                TimeSpan period = TimeSpan.FromDays(config.IntervalTime);
                 Deleter.timer = new Timer((state) =>
                 {
                     Deleter.DelAllFile();
@@ -48,7 +48,7 @@ namespace DelBigDirectory
                 var dueTilteTime = DateTime.Now.AddSeconds(1).Subtract(DateTime.Now);
                 Deleter.TitleTimer = new Timer((state) =>
                 {
-                    Console.WriteLine("当前耗时 {0} ms,删除{1},跳过{2}.", sw.ElapsedMilliseconds, delNum, ignoreNum);
+                    Console.Title = string.Format("当前耗时 {0} ms,删除{1},跳过{2}.", sw.ElapsedMilliseconds, delNum, ignoreNum);
                 }, null, dueTilteTime, TimeSpan.FromSeconds(1));
             }
         }
@@ -58,6 +58,7 @@ namespace DelBigDirectory
         /// </summary>
         public static void DelAllFile()
         {
+
             Dispose();
             var dir = new System.IO.DirectoryInfo(config.dir);
             var files = dir.EnumerateFiles("*.*", SearchOption.AllDirectories);
@@ -68,6 +69,7 @@ namespace DelBigDirectory
             sw.Stop();
             Deleter.TitleTimer.Dispose();
             Deleter.TitleTimer = null;
+
             Console.WriteLine("{0} 执行完毕,总共耗时 {1}ms,删除 {2},跳过 {3}.", DateTime.Now, sw.ElapsedMilliseconds, delNum, ignoreNum);
             Console.ReadKey();
         }

@@ -39,9 +39,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(541, 310);
+            this.button1.Location = new System.Drawing.Point(518, 310);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(98, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "IIS 站点监控";
             this.button1.UseVisualStyleBackColor = true;
@@ -51,9 +51,9 @@
             // 
             this.button2.Location = new System.Drawing.Point(25, 310);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(157, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
+            this.button2.Text = "加载所有站点及应用池";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -89,7 +89,7 @@
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "IIS 站点监控";
+            this.Text = "IIS 站点监控 QQ:42309073";
             ((System.ComponentModel.ISupportInitialize)(this.dgvSizeList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPool)).EndInit();
             this.ResumeLayout(false);

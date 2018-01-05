@@ -79,7 +79,7 @@ namespace IISMonitor
                 {
                     Loger.Today("Log").AppendLine(DateTime.Now).AppendLine(ex.Message).Save();
                 }
-                await Task.Delay(Config.Instance.IntervalTime * 6000);
+                await Task.Delay(Config.Instance.IntervalTime * 60 * 1000);
             }
         }
     }

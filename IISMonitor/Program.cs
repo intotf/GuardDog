@@ -23,9 +23,9 @@ namespace IISMonitor
                 {
                     c.Service<ServerControl>();
                     c.RunAsLocalSystem();
-                    c.SetServiceName("WebMonitor");
-                    c.SetDisplayName("Min 网站监控");
-                    c.SetDescription("小型网站监控程序/服务,QQ:42309073");
+                    c.SetServiceName("IISMonitor");
+                    c.SetDisplayName("IIS 网站监控");
+                    c.SetDescription("IIS 网站监控程序/服务,QQ:42309073");
                 });
             }
             else

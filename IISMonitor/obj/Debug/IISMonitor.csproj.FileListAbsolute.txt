@@ -1,0 +1,17 @@
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\IISMonitor.exe.config
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\IISMonitor.exe
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\IISMonitor.pdb
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.csprojResolveAssemblyReference.cache
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.MainForm.resources
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.Properties.Resources.resources
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.csproj.GenerateResource.Cache
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.exe
+E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Debug\IISMonitor.pdb
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Topshelf.dll
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Infrastructure.dll
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Aspose.Cells.dll
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Newtonsoft.Json.dll
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\log4net.dll
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Infrastructure.pdb
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\Newtonsoft.Json.xml
+E:\学习资料\GitHub\GuardDog\IISMonitor\bin\Debug\WebSites.xml

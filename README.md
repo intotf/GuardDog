@@ -34,3 +34,10 @@
       5.1 采用 LaoJiu.WebApiClient 进行webApi访问；
       5.2 获取 Ip138 当前公网IP地址；
       5.3 获取知心天气逐日三天天气情况；(免费用户，某些地区查询失败，如需全部地区请自行升级)
+### 知识点：
+      WinForm 中 UserControl 自定义控件使用。（动态创建控件）
+      自定义异常使用，继承 Exception；
+      将Json/XMl  自动创建类，VS工具，编辑->选择性粘贴（将Json/Xml 粘贴为类）
+      正则：var reg = new Regex(@"(?<=\[).*?(?=\])");       // 只找 [] 里面的内容
+            var reg = new Regex(@"\d+\.\d+\.\d+\.\d+");     // 找内容中 IP 地址
+      学习使用 LaoJiu.WebApiClient

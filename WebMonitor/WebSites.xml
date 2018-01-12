@@ -1,37 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <WebSites TimeOut="10" IsSendMail="true" IntervalTime="1" Attempts="3">
-    <Web Name="测试站点" Url="http://localhost:6002/" />
-    <!--<Web Name="公有云正式平台" Url="http://public.taichuan.com" />
-    <Web Name="太川私有云" Url="http://haina.taichuan.net/" />
-    <Web Name="南京私有云" Url="http://haina.taichuan.com/" />
-    <Web Name="Tcc旧改平台" Url="http://tcc3.taichuan.com/" />
-    <Web Name="硬件云平台" Url="https://iot.taichuan.net/" />
-    <Web Name="智能新媒体" Url="http://media.taichuan.net/" />
-    <Web Name="太川公司官网" Url="http://www.taichuan.com/" />
-
-
-    <Web Name="岳阳路盾科技大美私有云" Url="http://www.dmzhsq.com/" />
-    <Web Name="海南安福私有云" Url="http://59.50.94.42:8000/" />
-    <Web Name="康桥私有云" Url="http://wulian.hnxkqwy.com/" />
-    <Web Name="深圳一应物业私有云" Url="http://tcc.einwin.com:8000/" />
-    <Web Name="云南亚广私有云" Url="http://106.57.255.204:8000" />
-    <Web Name="安徽云生活私有云" Url="http://private.ahyunlife.com/" />
-    <Web Name="辽宁鸿太科技私有云" Url="http://ht.ddhongtai.com" />
-    <Web Name="新疆私有云" Url="http://cloud.yuntengo.com:8000/" />
-    <Web Name="陕西宝鸡云和私有云" Url="http://www.yh-net.cn/" />
-    <Web Name="乌海网讯私有云" Url="http://219.159.20.151:8000/" />
-    <Web Name="山西临汾-龙七社区私有云" Url="http://www.l7kj.com/" />
-    <Web Name="陕西鼎泰智能私有云" Url="http://www.ydtjgj.com/" />
-    <Web Name="广西朗杰私有云" Url="http://syy.lanje.cn/" />
-    <Web Name="江苏三意私有云" Url="http://www.3ecloud.cn/" />
-    <Web Name="山西长治紫金领秀-振华地产" Url="http://www.czzhdc.com/" />
-    <Web Name="江西丰达-智慧云小区私有云" Url="http://www.jxfdkj.cn/" />
-    <Web Name="全家互联私有云(测试公有云)" Url="http://www.szqjhl.com/" />
-    <Web Name="武汉-佰昌集团私有云(测试公有云)" Url="http://www.bysungongguan.cn/" />
-    <Web Name="宜居科技私有云(测试公有云)" Url="http://61.183.35.42:8000/" />
+    <Web Name="本地站点站点" Url="http://localhost/" />
+    <Web Name="公有云正式平台" Url="http://www.baidu.com" />
   </WebSites>
   <Emails>
-    <Item Mail="42309073@taichuan.com" />
+    <Item Mail="42309073@qq.com" />
   </Emails>
 </Root>

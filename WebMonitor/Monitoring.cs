@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMonitor.Push;
@@ -40,6 +41,22 @@ namespace WebMonitor
             //执行监测并自动启动服务
             while (!cancellationToken.IsCancellationRequested)
             {
+                var ping = new Ping();
+                try
+                {
+                    var pingSatet = await ping.SendPingAsync("www.baidu.com", 1000);
+                    if (pingSatet.Status != IPStatus.Success)
+                    {
+                        Debugger.WriteLine("{0} {1}", DateTime.Now, "当前网络连接失败,或网络不稳定.");
+                        await TaskDelay();
+                        continue;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debugger.WriteLine("{0} {1} ", DateTime.Now, ex.Message);
+                    continue;
+                }
                 using (var client = new HttpClient(config.TimeOut * 1000))
                 {
                     var exMsg = "正常";

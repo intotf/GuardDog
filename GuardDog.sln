@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloundTools", "CloundTools"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniverseForm", "CloundTool\SeniverseForm\SeniverseForm.csproj", "{3CED8EAB-70BC-4224-AA57-E7CA1FCA1869}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinPost", "MinPost\MinPost.csproj", "{59BB3188-CF35-4F51-9E11-4A90116C6B49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{3CED8EAB-70BC-4224-AA57-E7CA1FCA1869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CED8EAB-70BC-4224-AA57-E7CA1FCA1869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CED8EAB-70BC-4224-AA57-E7CA1FCA1869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

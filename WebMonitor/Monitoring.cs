@@ -54,7 +54,8 @@ namespace WebMonitor
                 }
                 catch (Exception ex)
                 {
-                    Debugger.WriteLine("{0} {1} ", DateTime.Now, ex.Message);
+                    Debugger.WriteLine("{0} {1} {2}", DateTime.Now, "当前网络连接失败", ex.Message);
+                    Thread.Sleep(5000);
                     continue;
                 }
                 using (var client = new HttpClient(config.TimeOut * 1000))

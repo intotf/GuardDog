@@ -15,7 +15,6 @@ namespace WebMonitor
         [STAThread]
         static void Main(string[] args)
         {
-
             if (args.Length > 0)
             {
                 Console.SetOut(Debugger.Out);

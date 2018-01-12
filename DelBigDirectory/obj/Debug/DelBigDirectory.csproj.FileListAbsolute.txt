@@ -1,0 +1,7 @@
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\bin\Debug\DelBigDirectory.exe.config
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\obj\Debug\DelBigDirectory.csprojResolveAssemblyReference.cache
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\bin\Debug\DelBigDirectory.exe
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\bin\Debug\DelBigDirectory.pdb
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\bin\Debug\Topshelf.dll
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\obj\Debug\DelBigDirectory.exe
+E:\学习资料\GitHub\GuardDog\DelBigDirectory\obj\Debug\DelBigDirectory.pdb

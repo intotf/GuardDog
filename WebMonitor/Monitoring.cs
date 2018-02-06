@@ -25,6 +25,7 @@ namespace WebMonitor
             this.Url = url;
         }
 
+
         /// <summary>
         /// 检测站点是否正常
         /// </summary>
@@ -47,6 +48,7 @@ namespace WebMonitor
                     var pingSatet = await ping.SendPingAsync("www.baidu.com", 1000);
                     if (pingSatet.Status != IPStatus.Success)
                     {
+                        this.Attempts = 0;
                         Debugger.WriteLine("{0} {1}", DateTime.Now, "当前网络连接失败,或网络不稳定.");
                         await TaskDelay();
                         continue;

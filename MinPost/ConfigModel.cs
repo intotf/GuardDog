@@ -15,7 +15,8 @@ namespace MinPost
         {
             get
             {
-                return ConfigurationManager.AppSettings["DefaultLanguage"];
+                var language = ConfigurationManager.AppSettings["DefaultLanguage"];
+                return language.IsNullOrEmpty() ? LanguageType.UTF8.GetFieldDisplay() : language;
             }
         }
 
@@ -26,7 +27,8 @@ namespace MinPost
         {
             get
             {
-                return ConfigurationManager.AppSettings["DefaultPostType"];
+                var postType = ConfigurationManager.AppSettings["DefaultPostType"];
+                return postType.IsNullOrEmpty() ? PostType.Post.GetFieldDisplay() : postType;
             }
         }
     }

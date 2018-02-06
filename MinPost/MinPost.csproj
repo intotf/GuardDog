@@ -74,6 +74,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -106,6 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ByteConvertHelper.cs" />
     <Compile Include="Reflection\FileHelper.cs" />
+    <Compile Include="Reflection\JsonSerializer.cs" />
     <Compile Include="Reflection\Method.cs" />
     <Compile Include="Reflection\Property.cs" />
     <Compile Include="SelectModel.cs" />
@@ -123,6 +125,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

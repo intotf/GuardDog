@@ -337,23 +337,13 @@ namespace MinPost
             if (model == null)
                 return;
 
-            var modelByte = ByteConvertHelper.T2Bytes<ParameterModel>(model);
+            var modelJson = JsonSerializer.Serialize(model);
             //设置保存文件的格式  
-            saveFileDialog1.Filter = "二进制文件(*.dat)|*.dat";
+            saveFileDialog1.Filter = "数据文件(*.dat)|*.dat";
             saveFileDialog1.InitialDirectory = bastDataPath;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //使用“另存为”对话框中输入的文件名实例化FileStream对象  
-                FileStream myStream = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                //使用FileStream对象实例化BinaryWriter二进制写入流对象  
-                BinaryWriter myWriter = new BinaryWriter(myStream);
-                //以二进制方式向创建的文件中写入内容  
-                myWriter.Write(modelByte);
-                //关闭当前二进制写入流  
-                myWriter.Close();
-                //关闭当前文件流  
-                myStream.Close();
-
+                File.WriteAllText(saveFileDialog1.FileName, modelJson, Encoding.UTF8);
                 MessageBox.Show("保存成功.");
                 InitializePage();
             }
@@ -374,8 +364,8 @@ namespace MinPost
                 return;
             }
 
-            var fileByte = FileHelper.FileToBytes(fileModel.AbsolutePath);
-            var model = ByteConvertHelper.Bytes2T<ParameterModel>(fileByte);
+            var fileJson = FileHelper.FileToString(fileModel.AbsolutePath);
+            var model = JsonSerializer.Deserialize<ParameterModel>(fileJson);
 
             var a = new SelectModel { Value = model.postType.GetHashCode(), Title = model.postType.GetFieldDisplay() };
             var b = new SelectModel { Value = model.postType.GetHashCode(), Title = model.postType.GetFieldDisplay() };

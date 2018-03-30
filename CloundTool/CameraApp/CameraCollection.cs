@@ -18,7 +18,7 @@ namespace CameraApp
         /// <summary>
         /// 摄像头集合
         /// </summary>
-        public List<Camera> Cameras = new List<Camera>();
+        public List<Camera> Cameras { get; private set; }
 
         /// <summary>
         /// 实例化摄像头
@@ -30,6 +30,7 @@ namespace CameraApp
         /// </summary>
         private CameraCollection()
         {
+            var cameraList = new List<Camera>();
             //获取当前电脑所有摄像头
             var CamerasCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             for (var i = 0; i < CamerasCollection.Count; i++)
@@ -37,8 +38,9 @@ namespace CameraApp
                 var ca = CamerasCollection[i];
                 var model = new Camera(ca);
                 model.OnRead += CameraApi.CameraReader_OnRead;
-                this.Cameras.Add(model);
+                cameraList.Add(model);
             }
+            this.Cameras = cameraList;
         }
     }
 }

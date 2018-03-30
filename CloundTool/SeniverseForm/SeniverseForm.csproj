@@ -226,6 +226,12 @@
     <Content Include="icon\logo.ico" />
     <Content Include="icon\logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\WeatherLib\WeatherLib.csproj">
+      <Project>{af70510d-c8a4-4020-a33e-88e1cf6b010d}</Project>
+      <Name>WeatherLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

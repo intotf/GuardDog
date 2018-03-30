@@ -19,6 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniverseForm", "CloundTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinPost", "MinPost\MinPost.csproj", "{59BB3188-CF35-4F51-9E11-4A90116C6B49}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{2218BE41-4DE6-4DA1-860D-25F4C79B01BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherLib", "Library\WeatherLib\WeatherLib.csproj", "{AF70510D-C8A4-4020-A33E-88E1CF6B010D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "CloundTool\WeatherApp\WeatherApp.csproj", "{00EB437E-7A14-457C-B44C-5258F40D2D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,11 +59,21 @@ Global
 		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59BB3188-CF35-4F51-9E11-4A90116C6B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF70510D-C8A4-4020-A33E-88E1CF6B010D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF70510D-C8A4-4020-A33E-88E1CF6B010D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF70510D-C8A4-4020-A33E-88E1CF6B010D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF70510D-C8A4-4020-A33E-88E1CF6B010D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EB437E-7A14-457C-B44C-5258F40D2D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EB437E-7A14-457C-B44C-5258F40D2D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EB437E-7A14-457C-B44C-5258F40D2D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EB437E-7A14-457C-B44C-5258F40D2D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3CED8EAB-70BC-4224-AA57-E7CA1FCA1869} = {67C57E90-E651-43EA-AD9D-CB0F77A65F95}
+		{AF70510D-C8A4-4020-A33E-88E1CF6B010D} = {2218BE41-4DE6-4DA1-860D-25F4C79B01BA}
+		{00EB437E-7A14-457C-B44C-5258F40D2D01} = {67C57E90-E651-43EA-AD9D-CB0F77A65F95}
 	EndGlobalSection
 EndGlobal

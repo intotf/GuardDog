@@ -4,3 +4,6 @@
 /CloundTool/SeniverseForm/bin
 /Infrastructure/obj
 /Infrastructure/bin
+/Library/WeatherLib/*
+/Library/WeatherLib/obj
+/Library/WeatherLib/bin

@@ -23,7 +23,7 @@ namespace CameraApp
         [Api]
         public static void CameraReader_OnRead(string imgBase64)
         {
-            var clients = ListenerControl.Listener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
+            var clients = Listener.WebSocketListener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
             foreach (var item in clients)
             {
                 try

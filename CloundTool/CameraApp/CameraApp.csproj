@@ -85,6 +85,7 @@
     <Compile Include="CameraCollection.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="ListenerControl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

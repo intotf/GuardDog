@@ -17,7 +17,7 @@ namespace CameraApp
     /// </summary>
     public class ListenerControl : ServiceControl
     {
-        public static TcpListener Listener = new TcpListener();
+        public static TcpListener listener = Listener.WebSocketListener;
 
         public bool Start(HostControl hostControl)
         {
@@ -28,9 +28,9 @@ namespace CameraApp
                 Console.WriteLine("{0} 端口{1}被进程{2}占用 ...", DateTime.Now, port, ower.OwerPid);
                 ower.Kill();
             }
-            Listener.Use<JsonWebSocketMiddleware>().GlobalFilters.Add(new Filter());
-            Listener.KeepAlivePeriod = TimeSpan.FromSeconds(30);
-            Listener.Start(port);
+            listener.Use<JsonWebSocketMiddleware>().GlobalFilters.Add(new Filter());
+            listener.KeepAlivePeriod = TimeSpan.FromSeconds(30);
+            listener.Start(port);
             Console.WriteLine("{0} 监听端口{1}成功 ...", DateTime.Now, port);
 
             return true;

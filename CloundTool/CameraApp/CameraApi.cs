@@ -14,7 +14,25 @@ namespace CameraApp
     /// </summary>
     public class CameraApi : JsonWebSocketApiService
     {
-        private CameraCollection Instance = CameraCollection.Instance;
+        private readonly CameraCollection Instance = CameraCollection.Instance;
+
+        /// <summary>
+        /// 读取到摄像头图片
+        /// </summary>
+        /// <param name="fpBase64">摄像头贞图片</param>
+        [Api]
+        public static void CameraReader_OnRead(string imgBase64)
+        {
+            var clients = ListenerControl.Listener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
+            foreach (var item in clients)
+            {
+                try
+                {
+                    item.InvokeApi("OnReadCamera", imgBase64);
+                }
+                catch (Exception) { }
+            }
+        }
 
         /// <summary>
         /// 获取所有摄像头信息
@@ -23,7 +41,7 @@ namespace CameraApp
         [Api]
         public string GetAllCameras()
         {
-            return JsonSerializer.Serialize(Instance.CamerasCollection);
+            return JsonSerializer.Serialize(Instance.Cameras.Select(item => item.videoInfo.Name).ToList());
         }
 
         /// <summary>
@@ -34,12 +52,10 @@ namespace CameraApp
         [Api]
         public bool OpenCamera(string CameraName)
         {
-            for (int i = 0; i < Instance.CamerasCollection.Count; i++)
+            var Camera = Instance.Cameras.Where(item => item.videoInfo.Name == CameraName).FirstOrDefault();
+            if (Camera != null)
             {
-                if (Instance.CamerasCollection[i].Name.Equals(CameraName, StringComparison.Ordinal))
-                {
-                    return Instance.SetCamera(Instance.CamerasCollection[i]).StartCamera();
-                }
+                return Camera.StartCamera();
             }
             return false;
         }
@@ -48,9 +64,14 @@ namespace CameraApp
         /// 关闭当前摄像头
         /// </summary>
         [Api]
-        public bool CloseCamera()
+        public bool CloseCamera(string CameraName)
         {
-            return Instance.StopCamera();
+            var Camera = Instance.Cameras.Where(item => item.videoInfo.Name == CameraName).FirstOrDefault();
+            if (Camera != null)
+            {
+                return Camera.StopCamera();
+            }
+            return false;
         }
     }
 }

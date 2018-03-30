@@ -17,7 +17,7 @@ namespace CameraApp
     /// </summary>
     public class ListenerControl : ServiceControl
     {
-        private TcpListener Listener = new TcpListener();
+        public static TcpListener Listener = new TcpListener();
 
         public bool Start(HostControl hostControl)
         {

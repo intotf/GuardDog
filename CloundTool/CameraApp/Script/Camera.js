@@ -4,10 +4,22 @@
 
     // 连接成功
     ws.onopen = function (e) {
-        alert("连接成功.");
-        var s = ws.invokeApi("GetAllCameras", []);
-        console.log(s);
+        //获取所有摄像头
+        $("#CameraBtn").show();
+        //ws.invokeApi("GetAllCameras", [], function (data) {
+        //    var Cameras = JSON.parse(data);
+        //    $.each(Cameras, function (index, value, array) {
+        //        $("#camera").append("<option value='" + value + "'>" + value + "</option>");
+        //    });
+        //});
     };
+
+
+
+    //获取所有摄像头
+    this.GetCameras = function (callback) {
+        ws.invokeApi("GetAllCameras", [], callback);
+    }
 
     // 未安装本机服务时触发
     this.onNoService = function (callback) {
@@ -16,9 +28,18 @@
         }
     }
 
-    // 身份证读取时触发
-    this.GetAllCameras = function (callBack) {
-        ws.bindApi("GetAllCameras", callBack);
+    // 接收摄像头数据
+    this.OnReadCamera = function (callBack) {
+        ws.bindApi("OnReadCamera", callBack);
     }
 
+    // 打开摄像头
+    this.OpenCamera = function (name, callBack) {
+        ws.invokeApi("OpenCamera", [name], callBack);
+    }
+
+    // 关闭摄像头
+    this.CloseCamera = function (name, callBack) {
+        ws.invokeApi("CloseCamera", [name], callBack);
+    }
 };

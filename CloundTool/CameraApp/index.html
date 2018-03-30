@@ -1,23 +1,111 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-    <title>reader示例 </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="Script/webSocket.js"></script>
-    <script src="Script/camera.js"></script>
-    <script type="text/javascript">
-        CameraReader.onNoService(function () {
-            alert('这里弹出下载安装本地服务提示框');
-        });
+    <meta charset="utf-8" />
+    <title>摄像头在线监控</title>
+    <link href="Script/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="Script/jquery.min.js"></script>
+    <script src="script/layer/layer.js"></script>
+    <script src="script/websocket.js"></script>
+    <script src="script/camera.js"></script>
+    <style>
+        #CaptureList li {
+            float: left;
+        }
 
-        // 身份证读取
-        CameraReader.GetAllCameras(function (data) {
-            console.log(data);
-            alert(data);
-        });
-    </script>
+        #CameraBtn {
+            display: none;
+        }
+    </style>
 </head>
+<body onbeforeunload="CloseCamera()" onunload="CloseCamera()">
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand hidden-sm" href="index.html">
+                        <span>摄像头在线监控</span>
+                    </a>
+                </div>
+                <div role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="app">
+            <div class="jumbotron" style="min-height:680px;">
+                <h2>欢迎使用本系统!</h2>
+                <p>
+                    <span>请选择摄像头</span>
+                    <select id="camera"></select>
+                </p>
+                <div class="row col-md-12">
+                    <div class="row col-md-10">
+                        <img id="cameraImg" src="" class="img-rounded" width="640" height="480" />
+                    </div>
+                    <div class="row col-md-2" id="CaptureList" style=" height:500px; overflow:hidden;">
+                    </div>
+                </div>
+                <p id="CameraBtn">
+                    <a class="btn btn-danger btn-lg" href="#" onclick="OpenCamera()">打开摄像头</a>
+                    <a class="btn btn-danger btn-lg" href="#" onclick="CloseCamera()">关闭摄像头</a>
+                    <a class="btn btn-danger btn-lg" href="#" onclick="Capture()">拍照</a>
+                </p>
+                <div style=" float:none;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        CameraReader.onNoService(function () {
+            layer.alert("摄像头服务尚未开启.", { icon: 2 });
+            $("#CameraBtn").hide();
+        })
 
-<body>
+        // 摄像头数据流
+        CameraReader.OnReadCamera(function (data) {
+            $("#cameraImg").attr("src", "data:image/jpg;base64," + data);
+        });
+
+        //打开摄像头
+        function OpenCamera() {
+            CameraReader.OpenCamera($("#camera").val(), function (data) {
+                console.log(data);
+            })
+        }
+
+        //关闭摄像头
+        function CloseCamera() {
+            CameraReader.CloseCamera($("#camera").val(), function (data) {
+                console.log(data);
+            })
+        }
+
+        //抓拍
+        function Capture() {
+            var img = $("#cameraImg").attr("src");
+            var html = '<div class="col-md-12" style="padding:6px 0px;"><img id="CaptureImg" src="' + img + '" class="img-thumbnail" style="height:100px;" /></div>';
+            var divLength = $('#CaptureList').children('div').length;
+            if (divLength >= 4) {
+                console.log(divLength);
+                $("#CaptureList").find("div")[3].remove();
+            }
+            $("#CaptureList").prepend(html);
+        }
+
+        function GetCameras() {
+            CameraReader.GetCameras(function (data) {
+                var Cameras = JSON.parse(data);
+                $.each(Cameras, function (index, value, array) {
+                    $("#camera").append("<option value='" + value + "'>" + value + "</option>");
+                });
+            })
+        }
+
+        $(function () {
+            window.setTimeout("GetCameras()", 500);
+        })
+    </script>
 </body>
 </html>

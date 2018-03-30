@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>reader示例 </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Script/webSocket.js"></script>
+    <script src="Script/camera.js"></script>
+    <script type="text/javascript">
+        CameraReader.onNoService(function () {
+            alert('这里弹出下载安装本地服务提示框');
+        });
+
+        // 身份证读取
+        CameraReader.GetAllCameras(function (data) {
+            console.log(data);
+            alert(data);
+        });
+    </script>
+</head>
+
+<body>
+</body>
+</html>

@@ -19,6 +19,7 @@
     </style>
 </head>
 <body onbeforeunload="CloseCamera()" onunload="CloseCamera()">
+
     <div class="container">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -43,7 +44,8 @@
                 </p>
                 <div class="row col-md-12">
                     <div class="row col-md-10">
-                        <img id="cameraImg" src="" class="img-rounded" width="640" height="480" />
+                        <canvas id="cameraCanvas" class="img-rounded" width="640" height="480"></canvas>
+                        <!--<img id="cameraImg" src="" class="img-rounded" width="640" height="480" />-->
                     </div>
                     <div class="row col-md-2" id="CaptureList" style=" height:500px; overflow:hidden;">
                     </div>
@@ -63,10 +65,35 @@
             $("#CameraBtn").hide();
         })
 
+
         // 摄像头数据流
         CameraReader.OnReadCamera(function (data) {
-            $("#cameraImg").attr("src", "data:image/jpg;base64," + data);
+            OnCanvas(data);
+            //$("#cameraImg").attr("src", "data:image/jpg;base64," + data.imgBase64);
         });
+
+        var img = new Image();
+        //绘
+        function OnCanvas(data) {
+            img.src = "data:image/jpg;base64," + data.imgBase64;
+            var canvas = document.getElementById("cameraCanvas");
+            var context = canvas.getContext("2d");
+            img.onload = function () {
+                context.drawImage(img, 0, 0);
+
+                $.each(data.FacesMark, function (i, v) {
+                    //同时使用strokeRect方法和fillRect方法
+                    context.strokeStyle = "#F5270B";
+                    context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                });
+
+                $.each(data.EyesMark, function (i, v) {
+                    //同时使用strokeRect方法和fillRect方法
+                    context.strokeStyle = "#00FF00";
+                    context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                });
+            }
+        }
 
         //打开摄像头
         function OpenCamera() {
@@ -84,8 +111,7 @@
 
         //抓拍
         function Capture() {
-            var img = $("#cameraImg").attr("src");
-            var html = '<div class="col-md-12" style="padding:6px 0px;"><img id="CaptureImg" src="' + img + '" class="img-thumbnail" style="height:100px;" /></div>';
+            var html = '<div class="col-md-12" style="padding:6px 0px;"><img id="CaptureImg" src="' + img.src + '" class="img-thumbnail" style="height:100px;" /></div>';
             var divLength = $('#CaptureList').children('div').length;
             if (divLength >= 4) {
                 console.log(divLength);

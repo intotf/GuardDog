@@ -1,4 +1,7 @@
 ﻿using AForge.Video.DirectShow;
+using CameraApp.EmguCV;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,34 +26,44 @@ namespace CameraApp
         /// <summary>
         /// 选中的摄像头驱动
         /// </summary>
-        public VideoCaptureDevice videoDevice { get; set; }
+        private VideoCaptureDevice videoDevice { get; set; }
 
         /// <summary>
         /// 读取头像信息
         /// </summary>
-        public Action<string> OnRead;
+        public Action<CameraResult> OnRead;
 
         /// <summary>
         /// 上一次发送图片时间
         /// </summary>
-        public DateTime lastSendTime = DateTime.Now;
+        private DateTime lastSendTime = DateTime.Now;
 
         /// <summary>
         /// 发送图片间隔时间 250毫秒
         /// 每秒 发送 5张图片
         /// </summary>
-        public readonly TimeSpan Delay = TimeSpan.FromMilliseconds(250d);
+        private readonly TimeSpan Delay = TimeSpan.FromMilliseconds(250d);
 
         /// <summary>
         /// 时实图片字节
         /// 开启2M 临时连接空间
         /// </summary>
-        public readonly byte[] BitmapBuffer = new byte[2 * 1024 * 1024];
+        private readonly byte[] BitmapBuffer = new byte[2 * 1024 * 1024];
 
         /// <summary>
         /// 时实图片文内存流
         /// </summary>
-        public readonly MemoryStream BitmapStream = new MemoryStream();
+        private readonly MemoryStream BitmapStream = new MemoryStream();
+
+        /// <summary>
+        /// 原始图片
+        /// </summary>
+        private Bitmap bitmap;
+
+        /// <summary>
+        /// 识别后图片
+        /// </summary>
+        private Image<Bgr, Byte> imageCV;
 
         /// <summary>
         /// 构建一个摄像头
@@ -58,15 +71,8 @@ namespace CameraApp
         /// <param name="videoDevice"></param>
         public Camera(FilterInfo videoInfo)
         {
-            try
-            {
-                this.videoInfo = videoInfo;
-                this.videoDevice = new VideoCaptureDevice(this.videoInfo.MonikerString);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            this.videoInfo = videoInfo;
+            this.videoDevice = new VideoCaptureDevice(this.videoInfo.MonikerString);
         }
 
         /// <summary>
@@ -105,14 +111,14 @@ namespace CameraApp
             {
                 if (eventArgs.Frame != null)
                 {
-                    Bitmap bmp = eventArgs.Frame;
+                    this.bitmap = eventArgs.Frame;
                     var action = this.OnRead;
                     if (action != null)
                     {
-                        action.Invoke(this.bitmapToBase64(bmp));
+                        action.Invoke(this.ToCameraResult());
                         this.lastSendTime = DateTime.Now;
                     }
-                    bmp.Dispose();
+                    this.bitmap.Dispose();
                     eventArgs.Frame.Dispose();
                 }
             }
@@ -128,18 +134,42 @@ namespace CameraApp
             return this.videoDevice.IsRunning ? false : true;
         }
 
+
+
         /// <summary>
-        /// Bitmap 转 Base64
+        /// 转换为 CameraResult
         /// </summary>
-        /// <param name="bitmap"></param>
         /// <returns></returns>
-        private string bitmapToBase64(Bitmap bitmap)
+        private CameraResult ToCameraResult()
         {
+            long detectionTime;
+            bool tryUseCuda = false;
+            bool tryUseOpenCL = true;
+            List<Rectangle> faces = new List<Rectangle>();
+            List<Rectangle> eyes = new List<Rectangle>();
+
+            //人脸及眼睛识别
+            this.imageCV = new Image<Bgr, byte>(this.bitmap);
+            DetectFace.Detect(
+              this.imageCV.Mat, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
+              faces, eyes,
+              tryUseCuda,
+              tryUseOpenCL,
+              out detectionTime);
+
+            //foreach (Rectangle face in faces)
+            //    CvInvoke.Rectangle(this.imageCV, face, new Bgr(Color.Red).MCvScalar, 2);
+            //foreach (Rectangle eye in eyes)
+            //    CvInvoke.Rectangle(this.imageCV, eye, new Bgr(Color.Blue).MCvScalar, 2);
+            //this.bitmap = this.imageCV.ToBitmap();
+            this.imageCV.Dispose();
+
             this.BitmapStream.Position = 0;
-            bitmap.Save(this.BitmapStream, ImageFormat.Jpeg);
+            this.bitmap.Save(this.BitmapStream, ImageFormat.Jpeg);
             this.BitmapStream.Position = 0;
             var length = this.BitmapStream.Read(this.BitmapBuffer, 0, (int)this.BitmapStream.Length);
-            return Convert.ToBase64String(this.BitmapBuffer, 0, length);
+            var imgBase64 = Convert.ToBase64String(this.BitmapBuffer, 0, length);
+            return new CameraResult { imgBase64 = imgBase64, EyesMark = eyes.ToListMark(), FacesMark = faces.ToListMark() };
         }
     }
 }

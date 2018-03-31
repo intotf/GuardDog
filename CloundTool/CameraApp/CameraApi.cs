@@ -21,14 +21,14 @@ namespace CameraApp
         /// </summary>
         /// <param name="fpBase64">摄像头贞图片</param>
         [Api]
-        public static void CameraReader_OnRead(string imgBase64)
+        public static void CameraReader_OnRead(CameraResult data)
         {
             var clients = Listener.WebSocketListener.SessionManager.FilterWrappers<JsonWebSocketSession>().ToArray();
             foreach (var item in clients)
             {
                 try
                 {
-                    item.InvokeApi("OnReadCamera", imgBase64);
+                    item.InvokeApi("OnReadCamera", data);
                 }
                 catch (Exception) { }
             }

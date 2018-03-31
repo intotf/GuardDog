@@ -93,19 +93,6 @@
             }
             $("#CaptureList").prepend(html);
         }
-
-        function GetCameras() {
-            CameraReader.GetCameras(function (data) {
-                var Cameras = JSON.parse(data);
-                $.each(Cameras, function (index, value, array) {
-                    $("#camera").append("<option value='" + value + "'>" + value + "</option>");
-                });
-            })
-        }
-
-        $(function () {
-            window.setTimeout("GetCameras()", 500);
-        })
     </script>
 </body>
 </html>

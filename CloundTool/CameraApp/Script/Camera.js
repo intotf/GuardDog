@@ -6,20 +6,13 @@
     ws.onopen = function (e) {
         //获取所有摄像头
         $("#CameraBtn").show();
-        //ws.invokeApi("GetAllCameras", [], function (data) {
-        //    var Cameras = JSON.parse(data);
-        //    $.each(Cameras, function (index, value, array) {
-        //        $("#camera").append("<option value='" + value + "'>" + value + "</option>");
-        //    });
-        //});
+        ws.invokeApi("GetAllCameras", [], function (data) {
+            var Cameras = JSON.parse(data);
+            $.each(Cameras, function (index, value, array) {
+                $("#camera").append("<option value='" + value + "'>" + value + "</option>");
+            });
+        });
     };
-
-
-
-    //获取所有摄像头
-    this.GetCameras = function (callback) {
-        ws.invokeApi("GetAllCameras", [], callback);
-    }
 
     // 未安装本机服务时触发
     this.onNoService = function (callback) {

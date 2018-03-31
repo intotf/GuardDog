@@ -85,11 +85,7 @@ namespace CameraApp
                 }
                 this.videoDevice.NewFrame += videoDevice_NewFrame;
                 this.videoDevice.Start();
-                if (this.videoDevice.IsRunning)
-                {
-                    return true;
-                }
-                return false;
+                return this.videoDevice.IsRunning;
             }
             catch (Exception ex)
             {
@@ -127,11 +123,9 @@ namespace CameraApp
         /// </summary>
         public bool StopCamera()
         {
-            if (videoDevice != null)
-            {
-                videoDevice.Stop();
-            }
-            return true;
+            if (this.videoDevice != null)
+                this.videoDevice.Stop();
+            return this.videoDevice.IsRunning ? false : true;
         }
 
         /// <summary>

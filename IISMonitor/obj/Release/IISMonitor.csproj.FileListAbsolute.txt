@@ -1,4 +1,0 @@
-E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Release\IISMonitor.MainForm.resources
-E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Release\IISMonitor.Properties.Resources.resources
-E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Release\IISMonitor.csproj.GenerateResource.Cache
-E:\学习资料\GitHub\GuardDog\IISMonitor\obj\Release\IISMonitor.csprojResolveAssemblyReference.cache

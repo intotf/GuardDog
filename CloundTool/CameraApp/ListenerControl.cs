@@ -9,6 +9,7 @@ using NetworkSocket.WebSocket;
 using System.Configuration;
 using NetworkSocket.Util;
 using NetworkSocket.Flex;
+using NetworkSocket.Http;
 
 namespace CameraApp
 {
@@ -28,6 +29,7 @@ namespace CameraApp
                 Console.WriteLine("{0} 端口{1}被进程{2}占用 ...", DateTime.Now, port, ower.OwerPid);
                 ower.Kill();
             }
+            listener.Use<HttpMiddleware>();
             listener.Use<JsonWebSocketMiddleware>().GlobalFilters.Add(new Filter());
             listener.KeepAlivePeriod = TimeSpan.FromSeconds(30);
             listener.Start(port);

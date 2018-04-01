@@ -100,8 +100,8 @@
     <Compile Include="CameraCollection.cs" />
     <Compile Include="CameraResult.cs" />
     <Compile Include="EmguCV\DetectFace.cs" />
-    <Compile Include="EmguCV\FaceDetection.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="IndexController.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="ListenerControl.cs" />
@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Script\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Script\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
@@ -152,14 +151,15 @@
     <None Include="Script\bootstrap\vendors\font-awesome\scss\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="canvas.html" />
     <Content Include="haarcascade_eye.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="haarcascade_frontalface_default.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="index.html" />
+    <Content Include="index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Script\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Script\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Script\bootstrap\dist\css\bootstrap.css" />
@@ -315,6 +315,9 @@
     <Error Condition="!Exists('..\..\packages\EmguCV.3.1.0.1\build\EmguCV.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EmguCV.3.1.0.1\build\EmguCV.targets'))" />
   </Target>
   <Import Project="..\..\packages\EmguCV.3.1.0.1\build\EmguCV.targets" Condition="Exists('..\..\packages\EmguCV.3.1.0.1\build\EmguCV.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /e /Y "$(ProjectDir)Script\*"  "$(TargetDir)Script\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

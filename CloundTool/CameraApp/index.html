@@ -54,6 +54,7 @@
                     <a class="btn btn-danger btn-lg" href="#" onclick="OpenCamera()">打开摄像头</a>
                     <a class="btn btn-danger btn-lg" href="#" onclick="CloseCamera()">关闭摄像头</a>
                     <a class="btn btn-danger btn-lg" href="#" onclick="Capture()">拍照</a>
+                    <a class="btn btn-danger btn-lg" href="#" id="FaceCapture" onclick="Capture()">人脸拍照</a>
                 </p>
                 <div style=" float:none;"></div>
             </div>
@@ -80,18 +81,22 @@
             var context = canvas.getContext("2d");
             img.onload = function () {
                 context.drawImage(img, 0, 0);
+                if (data.FacesMark.length > 0 && data.EyesMark.length > 0) {
+                    $.each(data.FacesMark, function (i, v) {
+                        //同时使用strokeRect方法和fillRect方法
+                        context.strokeStyle = "#F5270B";
+                        context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                    });
 
-                $.each(data.FacesMark, function (i, v) {
-                    //同时使用strokeRect方法和fillRect方法
-                    context.strokeStyle = "#F5270B";
-                    context.strokeRect(v.X, v.Y, v.Width, v.Height);
-                });
-
-                $.each(data.EyesMark, function (i, v) {
-                    //同时使用strokeRect方法和fillRect方法
-                    context.strokeStyle = "#00FF00";
-                    context.strokeRect(v.X, v.Y, v.Width, v.Height);
-                });
+                    $.each(data.EyesMark, function (i, v) {
+                        //同时使用strokeRect方法和fillRect方法
+                        context.strokeStyle = "#00FF00";
+                        context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                    });
+                    $("#FaceCapture").removeClass("disabled");
+                } else {
+                    $("#FaceCapture").addClass("disabled");
+                }
             }
         }
 

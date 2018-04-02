@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeatherLib;
 using WebApiClient;
 
 namespace SeniverseForm
@@ -51,27 +52,19 @@ namespace SeniverseForm
         {
             var btn = (Button)sender;
             btn.Enabled = false;
-
-            var api = HttpApiClient.Create<SeniverseApi>();
-
-            var seniversData = await api.GetDailyAsync(this.textBox1.Text)
-                .Retry(3, TimeSpan.FromSeconds(2))
-                .WhenResult(txt => txt == null || txt.results == null || txt.results.Length == 0)
-                .Handle()
-                .WhenCatch<SeniverserException>(ex =>
-                {
-                    MessageBox.Show(ex.Message);
-                    return default(SeniversResult);
-                });
-
-            if (seniversData == null)
+            if (string.IsNullOrEmpty(this.textBox1.Text))
+            {
+                MessageBox.Show("请输入地区名.");
+                return;
+            }
+            var data = await WeatherApi.GetDailyRestAsync(this.textBox1.Text);
+            if (!data.State)
             {
                 btn.Enabled = true;
                 return;
             }
-
             var i = 0;
-            foreach (var item in seniversData.results.FirstOrDefault().daily)
+            foreach (var item in data.Data.results.FirstOrDefault().daily)
             {
 
                 var tabPage = new TabPage(item.date);
@@ -90,7 +83,7 @@ namespace SeniverseForm
                 }
                 i++;
             }
-            var resultFirst = seniversData.results.FirstOrDefault();
+            var resultFirst = data.Data.results.FirstOrDefault();
             this.lbUpdateTime.Text = resultFirst.last_update.ToString("yyyy-MM-dd HH:mm:ss");
             var path = resultFirst.location.path.Split(',');
             this.lbCity.Text = string.Join(" ", path.Where((item, n) => n > 0).Reverse());

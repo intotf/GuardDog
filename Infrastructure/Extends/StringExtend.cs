@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -357,6 +358,23 @@ namespace Infrastructure
             var s = sourceArray.Length - q;
             var r = destArray.Length - q;
             return Kq * q / (Kq * q + Kr * r + Ks * s);
+        }
+
+        /// <summary>
+        /// HMACSHA1 加密
+        /// </summary>
+        /// <param name="source">待加密字符串</param>
+        /// <param name="Key">秘钥</param>
+        /// <returns></returns>
+        public static string ToBase64hmac(this string source, string Key)
+        {
+            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(Key))
+            {
+                return string.Empty;
+            }
+            HMACSHA1 myHMACSHA1 = new HMACSHA1(Encoding.UTF8.GetBytes(Key));
+            byte[] byteText = myHMACSHA1.ComputeHash(Encoding.UTF8.GetBytes(source));
+            return System.Convert.ToBase64String(byteText);
         }
     }
 }

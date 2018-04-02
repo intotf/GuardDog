@@ -100,5 +100,17 @@ namespace Infrastructure
         {
             return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
         }
+
+        // <summary>  
+        /// 获取时间毫秒戳 Timestamp
+        /// </summary>  
+        /// <param name="dt"></param>  
+        /// <returns></returns>  
+        public static long ToTimeStamp(this DateTime dt)
+        {
+            DateTime dateStart = new DateTime(1970, 1, 1, 8, 0, 0);
+            var timeStamp = Convert.ToInt64((dt - dateStart).TotalMilliseconds);
+            return timeStamp;
+        }
     }
 }

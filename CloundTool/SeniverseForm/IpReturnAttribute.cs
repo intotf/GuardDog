@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebApiClient;
 using WebApiClient.Attributes;
+using WebApiClient.Contexts;
 
 namespace SeniverseForm
 {

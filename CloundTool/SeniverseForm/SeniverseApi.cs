@@ -11,16 +11,6 @@ namespace SeniverseForm
     public interface SeniverseApi : IDisposable
     {
         /// <summary>
-        /// 获取逐日天气
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        [SeniversFilter]
-        [SeniversReturn]
-        [HttpHost("https://api.seniverse.com/v3/weather/daily.json")]
-        ITask<SeniversResult> GetDailyAsync(string location);
-
-        /// <summary>
         /// 从 ip138 站点获取IP
         /// </summary>
         /// <returns></returns>

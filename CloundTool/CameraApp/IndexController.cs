@@ -13,7 +13,7 @@ namespace CameraApp
         public ActionResult Index()
         {
             Response.Status = 301;
-            Response.Headers.Add("Location ", "/Script/index.html");
+            Response.Headers.Add("Location ", "/index.html");
             return new EmptyResult();
         }
     }

@@ -74,6 +74,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -93,14 +95,14 @@
     <Compile Include="Extend\ObjectExtend.cs" />
     <Compile Include="Extend\StringExtend.cs" />
     <Compile Include="Enum\PostType.cs" />
-    <Compile Include="HttpClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MinPost.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MinPost.Designer.cs">
       <DependentUpon>MinPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HttpClient.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ParameterModel.cs" />
     <Compile Include="Program.cs" />

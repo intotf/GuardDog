@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.IO;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace MinPost
 {
@@ -111,9 +112,9 @@ namespace MinPost
         /// </summary>
         /// <param name="address">地址</param>
         /// <returns></returns>
-        public byte[] HttpGet(string address)
+        public async Task<byte[]> HttpGet(string address)
         {
-            return this.DownloadData(address);
+            return await this.DownloadDataTaskAsync(address);
         }
 
         /// <summary>
@@ -122,9 +123,9 @@ namespace MinPost
         /// <param name="address">地址</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpGet(string address, Encoding encoding)
+        public async Task<string> HttpGet(string address, Encoding encoding)
         {
-            var bytes = this.HttpGet(address);
+            var bytes = await this.HttpGet(address);
             return encoding.GetString(bytes);
         }
 
@@ -135,12 +136,12 @@ namespace MinPost
         /// <param name="parameters">参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpGet<T>(string address, T parameter, Encoding encoding) where T : class
+        public async Task<string> HttpGet<T>(string address, T parameter, Encoding encoding) where T : class
         {
             var param = HttpClient.GetParameter(parameter);
             if (param == null)
             {
-                return this.HttpGet(address, encoding);
+                return await this.HttpGet(address, encoding);
             }
 
             if (address.Contains('?'))
@@ -151,7 +152,7 @@ namespace MinPost
             {
                 address = address + "?" + param;
             }
-            return this.HttpGet(address, encoding);
+            return await this.HttpGet(address, encoding);
         }
 
 
@@ -162,7 +163,7 @@ namespace MinPost
         /// <param name="parameters">参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpGet(string address, string parameter, Encoding encoding)
+        public async Task<string> HttpGet(string address, string parameter, Encoding encoding)
         {
             if (address.Contains('?'))
             {
@@ -172,7 +173,7 @@ namespace MinPost
             {
                 address = address + "?" + parameter;
             }
-            return this.HttpGet(address, encoding);
+            return await this.HttpGet(address, encoding);
         }
 
 
@@ -183,12 +184,12 @@ namespace MinPost
         /// <param name="parameters">参数</param>
         /// <param name="encoding">编码</param>       
         /// <returns></returns>
-        public string HttpGet<T>(string address, T[] parameters, Encoding encoding) where T : class
+        public async Task<string> HttpGet<T>(string address, T[] parameters, Encoding encoding) where T : class
         {
             var param = HttpClient.GetParameter(parameters);
             if (param == null)
             {
-                return this.HttpGet(address, encoding);
+                return await this.HttpGet(address, encoding);
             }
 
             if (address.Contains('?'))
@@ -199,7 +200,7 @@ namespace MinPost
             {
                 address = address + "?" + param;
             }
-            return this.HttpGet(address, encoding);
+            return await this.HttpGet(address, encoding);
         }
 
         /// <summary>
@@ -208,13 +209,13 @@ namespace MinPost
         /// <param name="address">地址</param>
         /// <param name="parameter">参数</param>
         /// <returns></returns>
-        public byte[] HttpPost(string address, byte[] parameter)
+        public async Task<byte[]> HttpPost(string address, byte[] parameter)
         {
             if (string.IsNullOrEmpty(this.Headers[HttpRequestHeader.ContentType]))
             {
                 this.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
             }
-            return this.UploadData(address, "POST", parameter);
+            return await this.UploadDataTaskAsync(address, "POST", parameter);
         }
 
         /// <summary>
@@ -224,9 +225,9 @@ namespace MinPost
         /// <param name="parameter">参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpPost(string address, byte[] parameter, Encoding encoding)
+        public async Task<string> HttpPost(string address, byte[] parameter, Encoding encoding)
         {
-            var bytes = this.HttpPost(address, parameter);
+            var bytes = await this.HttpPost(address, parameter);
             return encoding.GetString(bytes);
         }
 
@@ -237,10 +238,10 @@ namespace MinPost
         /// <param name="parameter">用&连接的参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpPost(string address, string parameter, Encoding encoding)
+        public async Task<string> HttpPost(string address, string parameter, Encoding encoding)
         {
             var bytes = encoding.GetBytes(parameter);
-            return this.HttpPost(address, bytes, encoding);
+            return await this.HttpPost(address, bytes, encoding);
         }
 
         /// <summary>
@@ -250,10 +251,10 @@ namespace MinPost
         /// <param name="parameters">参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpPost<T>(string address, T parameters, Encoding encoding) where T : class
+        public async Task<string> HttpPost<T>(string address, T parameters, Encoding encoding) where T : class
         {
             var param = HttpClient.GetParameter(parameters);
-            return this.HttpPost(address, param, encoding);
+            return await this.HttpPost(address, param, encoding);
         }
 
         /// <summary>
@@ -263,10 +264,10 @@ namespace MinPost
         /// <param name="parameters">参数</param>
         /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public string HttpPost<T>(string address, T[] parameters, Encoding encoding) where T : class
+        public async Task<string> HttpPost<T>(string address, T[] parameters, Encoding encoding) where T : class
         {
             var param = HttpClient.GetParameter(parameters);
-            return this.HttpPost(address, param, encoding);
+            return await this.HttpPost(address, param, encoding);
         }
 
         /// <summary>
@@ -275,10 +276,10 @@ namespace MinPost
         /// <param name="address">地址</param>
         /// <param name="form">表单</param>
         /// <returns></returns>
-        public byte[] HttpPost(string address, MultipartForm form)
+        public async Task<byte[]> HttpPost(string address, MultipartForm form)
         {
             this.Headers.Add(HttpRequestHeader.ContentType, "multipart/form-data; boundary=----" + form.Boundary);
-            return this.UploadData(address, "POST", form.ToArray());
+            return await this.UploadDataTaskAsync(address, "POST", form.ToArray());
         }
 
         /// <summary>
@@ -288,9 +289,9 @@ namespace MinPost
         /// <param name="form">表单</param>
         /// <param name="encoding">解码</param>
         /// <returns></returns>
-        public string HttpPost(string address, MultipartForm form, Encoding encoding)
+        public async Task<string> HttpPost(string address, MultipartForm form, Encoding encoding)
         {
-            var bytes = this.HttpPost(address, form);
+            var bytes = await this.HttpPost(address, form);
             return encoding.GetString(bytes);
         }
 

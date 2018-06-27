@@ -45,6 +45,11 @@ namespace MinPost
         /// 是否二进制提交
         /// </summary>
         public bool IsBinary { get; set; }
+
+        /// <summary>
+        /// 是否为BodyRaw 方式提交
+        /// </summary>
+        public bool IsBodyRaw { get; set; }
     }
 
     /// <summary>

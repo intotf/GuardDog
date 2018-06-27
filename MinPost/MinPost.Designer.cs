@@ -35,6 +35,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MinPost));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btSaveLog = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
             this.cbIsBinary = new System.Windows.Forms.CheckBox();
             this.btLoding = new System.Windows.Forms.Button();
             this.cbQueryList = new System.Windows.Forms.ComboBox();
@@ -70,8 +72,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.btClear = new System.Windows.Forms.Button();
-            this.btSaveLog = new System.Windows.Forms.Button();
+            this.ckBody = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
@@ -97,6 +98,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ckBody);
             this.tabPage1.Controls.Add(this.btSaveLog);
             this.tabPage1.Controls.Add(this.btClear);
             this.tabPage1.Controls.Add(this.cbIsBinary);
@@ -122,6 +124,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基本信息";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btSaveLog
+            // 
+            this.btSaveLog.Location = new System.Drawing.Point(676, 341);
+            this.btSaveLog.Name = "btSaveLog";
+            this.btSaveLog.Size = new System.Drawing.Size(75, 23);
+            this.btSaveLog.TabIndex = 33;
+            this.btSaveLog.Text = "保存日志";
+            this.btSaveLog.UseVisualStyleBackColor = true;
+            this.btSaveLog.Click += new System.EventHandler(this.btSaveLog_Click);
+            // 
+            // btClear
+            // 
+            this.btClear.Location = new System.Drawing.Point(613, 342);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(57, 23);
+            this.btClear.TabIndex = 32;
+            this.btClear.Text = "清空";
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // cbIsBinary
             // 
@@ -456,25 +478,15 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(131, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // btClear
+            // ckBody
             // 
-            this.btClear.Location = new System.Drawing.Point(613, 342);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(57, 23);
-            this.btClear.TabIndex = 32;
-            this.btClear.Text = "清空";
-            this.btClear.UseVisualStyleBackColor = true;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
-            // btSaveLog
-            // 
-            this.btSaveLog.Location = new System.Drawing.Point(676, 341);
-            this.btSaveLog.Name = "btSaveLog";
-            this.btSaveLog.Size = new System.Drawing.Size(75, 23);
-            this.btSaveLog.TabIndex = 33;
-            this.btSaveLog.Text = "保存日志";
-            this.btSaveLog.UseVisualStyleBackColor = true;
-            this.btSaveLog.Click += new System.EventHandler(this.btSaveLog_Click);
+            this.ckBody.AutoSize = true;
+            this.ckBody.Location = new System.Drawing.Point(510, 192);
+            this.ckBody.Name = "ckBody";
+            this.ckBody.Size = new System.Drawing.Size(132, 16);
+            this.ckBody.TabIndex = 34;
+            this.ckBody.Text = "Body[Text]方式提交";
+            this.ckBody.UseVisualStyleBackColor = true;
             // 
             // MinPost
             // 
@@ -546,5 +558,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btClear;
         private System.Windows.Forms.Button btSaveLog;
+        private System.Windows.Forms.CheckBox ckBody;
     }
 }

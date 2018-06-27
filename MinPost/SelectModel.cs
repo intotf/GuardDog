@@ -17,8 +17,5 @@ namespace MinPost
         /// 下拉框文本
         /// </summary>
         public string Title { get; set; }
-
-
-        
     }
 }

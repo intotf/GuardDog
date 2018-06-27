@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,6 +43,7 @@ namespace MinPost
         private void Form1_Load(object sender, EventArgs e)
         {
             InitializePage();
+            this.Text = string.Format("minPost 调试工具V {0} - QQ:42309073", Application.ProductVersion);
         }
 
         /// <summary>
@@ -150,7 +152,7 @@ namespace MinPost
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btSubmit_Click(object sender, EventArgs e)
+        private async void btSubmit_Click(object sender, EventArgs e)
         {
             var model = GetParameterModel();
             if (model == null)
@@ -161,23 +163,27 @@ namespace MinPost
 
             if (model.postType == PostType.Post)
             {
-                Task.Run(() =>
-                        this.SubmitPostHttp(model)
-                    ).ContinueWith((item) =>
-                    {
-                        stopWatch.Stop();
-                        setStatusTxt(string.Format("总共用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString()));
-                    });
+                await this.SubmitPostHttpAsync(model);
+                //Task.Run(() =>
+                //     await this.SubmitPostHttp(model)
+                //   ).ContinueWith((item) =>
+                //   {
+                //       stopWatch.Stop();
+                //       setStatusTxt(string.Format("总共用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString()));
+                //   });
+                stopWatch.Stop();
+                setStatusTxt(string.Format("总共用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString()));
             }
             else
             {
-                Task.Run(() =>
-                        this.SubmitGetHttp(model)
-                    ).ContinueWith((item) =>
-                    {
-                        stopWatch.Stop();
-                        setStatusTxt(string.Format("总共用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString()));
-                    });
+                await this.SubmitGetHttpAsync(model);
+                //Task.Run(() =>
+                //      await this.SubmitGetHttp(model)
+                //    ).ContinueWith((item) =>
+                //    {
+                //        stopWatch.Stop();
+                //        setStatusTxt(string.Format("总共用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString()));
+                //    });
             }
         }
 
@@ -234,6 +240,7 @@ namespace MinPost
             model.langType = (LanguageType)langType.Value;
             model.postType = (PostType)postType.Value;
             model.postUrl = this.tbUrl.Text.ToUri();
+            model.IsBodyRaw = this.ckBody.Checked;
             return model;
         }
 
@@ -242,7 +249,7 @@ namespace MinPost
         /// Post提交数据
         /// </summary>
         /// <param name="model">提交模型</param>
-        private void SubmitPostHttp(ParameterModel model)
+        private async Task SubmitPostHttpAsync(ParameterModel model)
         {
             var clientResult = "<!--" + DateTime.Now.ToDateTimeString() + "-->" + Environment.NewLine;
             using (var client = new HttpClient())
@@ -250,31 +257,41 @@ namespace MinPost
                 try
                 {   //添加请求头
                     client.Headers = client.AddWebHeaders(model.HeadersDic);
-
                     var langType = Encoding.GetEncoding(model.langType.GetFieldDisplay());
-                    if (model.IsBinary || model.fileList.Count() > 0)
+                    if (this.ckBody.Checked)
                     {
-                        var form = new HttpClient.MultipartForm();
-                        foreach (var file in model.fileList)
-                        {
-                            string fileName = file.Substring(file.LastIndexOf('\\') + 1);
-                            form.AddFile(fileName, file);
-                        }
-
-                        var parArr = model.postBody.Split('&');
-                        foreach (var item in parArr)
-                        {
-                            if (!item.IsNullOrEmpty())
-                            {
-                                var items = item.Split('=');
-                                form.Add(items[0], items[1]);
-                            }
-                        }
-                        clientResult += client.HttpPost(model.postUrl.AbsoluteUri, form, langType);
+                        var httpContent = new System.Net.Http.StringContent(model.postBody);
+                        httpContent.Headers.ContentType = new MediaTypeHeaderValue("text/plains");
+                        var result = await new System.Net.Http.HttpClient().PostAsync(model.postUrl.AbsoluteUri, httpContent);
+                        var request = await result.Content.ReadAsStringAsync();
+                        clientResult += request;
                     }
                     else
                     {
-                        clientResult += client.HttpPost(model.postUrl.AbsoluteUri, model.postBody, langType);
+                        if (model.IsBinary || model.fileList.Count() > 0)
+                        {
+                            var form = new HttpClient.MultipartForm();
+                            foreach (var file in model.fileList)
+                            {
+                                string fileName = file.Substring(file.LastIndexOf('\\') + 1);
+                                form.AddFile(fileName, file);
+                            }
+
+                            var parArr = model.postBody.Split('&');
+                            foreach (var item in parArr)
+                            {
+                                if (!item.IsNullOrEmpty())
+                                {
+                                    var items = item.Split('=');
+                                    form.Add(items[0], items[1]);
+                                }
+                            }
+                            clientResult += await client.HttpPost(model.postUrl.AbsoluteUri, form, langType);
+                        }
+                        else
+                        {
+                            clientResult += await client.HttpPost(model.postUrl.AbsoluteUri, model.postBody, langType);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -307,7 +324,7 @@ namespace MinPost
         /// <param name="url"></param>
         /// <param name="body"></param>
         /// <param name="langType"></param>
-        private void SubmitGetHttp(ParameterModel model)
+        private async Task SubmitGetHttpAsync(ParameterModel model)
         {
             var clientResult = "<!-- " + DateTime.Now.ToDateTimeString() + " -->" + Environment.NewLine;
             using (var client = new HttpClient())
@@ -315,7 +332,7 @@ namespace MinPost
                 try
                 {
                     var langType = Encoding.GetEncoding(model.langType.GetFieldDisplay());
-                    clientResult += client.HttpGet(model.postUrl.AbsoluteUri, model.postBody, langType);
+                    clientResult += await client.HttpGet(model.postUrl.AbsoluteUri, model.postBody, langType);
                 }
                 catch (Exception ex)
                 {
@@ -386,7 +403,7 @@ namespace MinPost
                     this.dgvFiles.Rows[dgvIndex].Cells[0].Value = item;
                 }
                 this.cbIsBinary.Checked = model.IsBinary;
-
+                this.ckBody.Checked = model.IsBodyRaw;
                 this.dgvParameter.Rows.Clear();
                 if (model.HeadersDic != null)
                 {

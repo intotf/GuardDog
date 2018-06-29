@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -183,6 +183,16 @@ namespace WebMonitor
         /// 异常次数
         /// </summary>
         public int Attempts { get; set; }
+
+        /// <summary>
+        /// 上一次报警时间
+        /// </summary>
+        public DateTime? LastAlarmTime { get; set; }
+
+        /// <summary>
+        /// 通知间隔,默认第一次通知后间隔 5分钟，第二次 10分钟，第三次 20分钟，以此类推
+        /// </summary>
+        public int NoticeInterval { get; set; }
     }
 
     /// <summary>

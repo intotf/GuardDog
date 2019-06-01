@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -100,6 +101,36 @@ namespace Infrastructure
                 return source;
             }
             return source.ToUpper();
+        }
+
+        /// <summary>
+        /// 转换为Bool 类型
+        /// 失败返回默认值 false
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <returns></returns>
+        public static bool ToBool(this string source)
+        {
+            bool value = false;
+            bool.TryParse(source, out value);
+            return value;
+        }
+
+        /// <summary>
+        /// 转换为Bool 类型
+        /// 失败则直接返回默认值default
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="defalut">默认值</param>
+        /// <returns></returns>
+        public static bool ToBool(this string source, bool defalut)
+        {
+            bool value = false;
+            if (bool.TryParse(source, out value))
+            {
+                return value;
+            }
+            return defalut;
         }
 
         /// <summary>
@@ -327,6 +358,23 @@ namespace Infrastructure
             var s = sourceArray.Length - q;
             var r = destArray.Length - q;
             return Kq * q / (Kq * q + Kr * r + Ks * s);
+        }
+
+        /// <summary>
+        /// HMACSHA1 加密
+        /// </summary>
+        /// <param name="source">待加密字符串</param>
+        /// <param name="Key">秘钥</param>
+        /// <returns></returns>
+        public static string ToBase64hmac(this string source, string Key)
+        {
+            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(Key))
+            {
+                return string.Empty;
+            }
+            HMACSHA1 myHMACSHA1 = new HMACSHA1(Encoding.UTF8.GetBytes(Key));
+            byte[] byteText = myHMACSHA1.ComputeHash(Encoding.UTF8.GetBytes(source));
+            return System.Convert.ToBase64String(byteText);
         }
     }
 }

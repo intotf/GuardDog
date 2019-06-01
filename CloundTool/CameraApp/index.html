@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>摄像头在线监控</title>
+    <link href="Script/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="Script/jquery.min.js"></script>
+    <script src="script/layer/layer.js"></script>
+    <script src="script/websocket.js"></script>
+    <script src="script/camera.js"></script>
+    <style>
+        #CaptureList li {
+            float: left;
+        }
+
+        #CameraBtn {
+            display: none;
+        }
+    </style>
+</head>
+<body onbeforeunload="CloseCamera()" onunload="CloseCamera()">
+
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand hidden-sm" href="index.html">
+                        <span>摄像头在线监控</span>
+                    </a>
+                </div>
+                <div role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="app">
+            <div class="jumbotron" style="min-height:680px;">
+                <h2>欢迎使用本系统!</h2>
+                <p>
+                    <span>请选择摄像头</span>
+                    <select id="camera"></select>
+                </p>
+                <div class="row col-md-12">
+                    <div class="row col-md-10">
+                        <canvas id="cameraCanvas" class="img-rounded" width="640" height="480"></canvas>
+                        <!--<img id="cameraImg" src="" class="img-rounded" width="640" height="480" />-->
+                    </div>
+                    <div class="row col-md-2" id="CaptureList" style=" height:500px; overflow:hidden;">
+                    </div>
+                </div>
+                <p id="CameraBtn">
+                    <a class="btn btn-danger btn-lg" href="#" onclick="OpenCamera()">打开摄像头</a>
+                    <a class="btn btn-danger btn-lg" href="#" onclick="CloseCamera()">关闭摄像头</a>
+                    <a class="btn btn-danger btn-lg" href="#" onclick="Capture()">拍照</a>
+                    <a class="btn btn-danger btn-lg" href="#" id="FaceCapture" onclick="Capture()">人脸拍照</a>
+                </p>
+                <div style=" float:none;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        CameraReader.onNoService(function () {
+            layer.alert("摄像头服务尚未开启.", { icon: 2 });
+            $("#CameraBtn").hide();
+        })
+
+
+        // 摄像头数据流
+        CameraReader.OnReadCamera(function (data) {
+            OnCanvas(data);
+            //$("#cameraImg").attr("src", "data:image/jpg;base64," + data.imgBase64);
+        });
+
+        var img = new Image();
+        //绘
+        function OnCanvas(data) {
+            img.src = "data:image/jpg;base64," + data.imgBase64;
+            var canvas = document.getElementById("cameraCanvas");
+            var context = canvas.getContext("2d");
+            img.onload = function () {
+                context.drawImage(img, 0, 0);
+                if (data.FacesMark.length > 0 && data.EyesMark.length > 0) {
+                    $.each(data.FacesMark, function (i, v) {
+                        //同时使用strokeRect方法和fillRect方法
+                        context.strokeStyle = "#F5270B";
+                        context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                    });
+
+                    $.each(data.EyesMark, function (i, v) {
+                        //同时使用strokeRect方法和fillRect方法
+                        context.strokeStyle = "#00FF00";
+                        context.strokeRect(v.X, v.Y, v.Width, v.Height);
+                    });
+                    $("#FaceCapture").removeClass("disabled");
+                } else {
+                    $("#FaceCapture").addClass("disabled");
+                }
+            }
+        }
+
+        //打开摄像头
+        function OpenCamera() {
+            CameraReader.OpenCamera($("#camera").val(), function (data) {
+                console.log(data);
+            })
+        }
+
+        //关闭摄像头
+        function CloseCamera() {
+            CameraReader.CloseCamera($("#camera").val(), function (data) {
+                console.log(data);
+            })
+        }
+
+        //抓拍
+        function Capture() {
+            var html = '<div class="col-md-12" style="padding:6px 0px;"><img id="CaptureImg" src="' + img.src + '" class="img-thumbnail" style="height:100px;" /></div>';
+            var divLength = $('#CaptureList').children('div').length;
+            if (divLength >= 4) {
+                console.log(divLength);
+                $("#CaptureList").find("div")[3].remove();
+            }
+            $("#CaptureList").prepend(html);
+        }
+    </script>
+</body>
+</html>

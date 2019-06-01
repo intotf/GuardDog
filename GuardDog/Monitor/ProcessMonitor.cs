@@ -26,6 +26,11 @@ namespace GuardDog
             get { return this.processName; }
         }
 
+        public override string SystemName
+        {
+            get { return "程序"; }
+        }
+
         /// <summary>
         /// 程序监控构造函数
         /// </summary>

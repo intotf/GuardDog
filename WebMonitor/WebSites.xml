@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <WebSites TimeOut="10" IsSendMail="true" IntervalTime="1" Attempts="3">
+    <Web Name="本地站点站点" Url="http://localhost/" />
+    <Web Name="公有云正式平台" Url="http://www.baidu.com" />
+  </WebSites>
+  <Emails>
+    <Item Mail="42309073@qq.com" />
+  </Emails>
+</Root>

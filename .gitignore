@@ -1,0 +1,16 @@
+/WebMonitor/bin
+/WebMonitor/obj
+/CloundTool/SeniverseForm/obj
+/CloundTool/SeniverseForm/bin
+/Infrastructure/obj
+/Infrastructure/bin
+/Library/WeatherLib/*
+/Library/WeatherLib/obj
+/Library/WeatherLib/bin
+/CloundTool/CameraApp/obj
+/CloundTool/CameraApp/bin
+/CloundTool/WeatherApp/bin
+/CloundTool/WeatherApp/obj
+packages
+obj
+bin
